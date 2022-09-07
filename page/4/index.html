@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Filosfino</title><meta name="description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/images/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css"><link rel="alternate" type="application/atom+xml" href="https://blog.filosfino.com/atom.xml" title="Filosfino"><meta name="generator" content="Hexo 5.4.2"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/images/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://www.zhihu.com/people/zheduanyin/activities" target="_blank" class="nav-list-link">ZHIHU</a></li><li class="nav-list-item"><a href="https://twitter.com/filosfino" target="_blank" class="nav-list-link">TWITTER</a></li><li class="nav-list-item"><a href="https://github.com/filosfino" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul><div class="subtitle">喜欢观察世界，也出走过青铜时代、梦马臆想</div></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/05/15/%E5%88%AB%E4%BA%BA%E7%9A%84%E5%8A%A3%E8%B4%A8%E7%83%9F%E6%9C%AA%E5%BF%85%E6%AF%94%E4%BD%A0%E7%9A%84%E6%9B%B4%E5%B7%AE/" class="post-title-link">别人的劣质烟未必比你的更差</a><span class="post-info">2016年5月15日</span></h2><div class="post-content"><p>一大波加班节奏正在袭来，忙里偷闲观察了一下办公室和自己的一些症状</p>
+<p>有一天门外的烟味特别重，进进出出的人中很少看到把门关死的（可能在想我就出去一会会，关掉的话回来的时候还要按指纹，就索性开一会吧），劣质香烟的味道就肆无忌惮地朝办公室里灌，像扫黄队抓到嫖娼的人一样 aggresive，闻上两秒就能头晕。而大家都注意到如此浓烈味道的前提下，抱怨 <code> 外面烟味这么重，为什么不关门！</code>最大声的那个人，TA 自己走出去的时候同样没有把门带上。</p>
+<p>人们边抱怨着别人怎样怎样，一边又做着同样事，自己丝毫不知。</p>
+<p>周六加班，周日去做四维彩超，有点迫不及待的兴奋，和小家伙的第一次见面，小嘴嘟哝着砸吧砸吧，小手缩在脑袋下面，老可爱了。</p>
+<p>在办公室里一个空旷的地方，坐着转椅一直转，一直转，有点惬意地晕乎乎，眼睛盯着 60° 天花板，停下来后天花板仍然在转，和想象中的嗑药一样，这个状态能持续半分钟，舒服。</p></div><a href="/2016/05/15/%E5%88%AB%E4%BA%BA%E7%9A%84%E5%8A%A3%E8%B4%A8%E7%83%9F%E6%9C%AA%E5%BF%85%E6%AF%94%E4%BD%A0%E7%9A%84%E6%9B%B4%E5%B7%AE/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/05/12/SOA-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84-Web-%E6%9E%B6%E6%9E%84/" class="post-title-link">SOA 前后端分离的 Web 架构</a><span class="post-info">2016年5月12日</span></h2><div class="post-content"><p> 新项目用了 Web + BFF + Service 这种前后端分的比较开的架构，用起来蛮舒服，其中 Web 层负责提供 HTML / JS；BFF 层则是做权限校验、缓存、逻辑整合、内容聚合拆分、向 Service 层请求数据；最底层的 Service 层提供数据库的数据操作，过滤等 API，这层位于内网，只有 BFF 层可以访问。三层都通过 HTTP 协议来提供服务。</p>
+<p> 这个架构的好处很明显 </p>
+<ul>
+<li> 前后端分离，修改十分方便 </li>
+<li> 系统拓展性强，可以通过修改 BFF 的方式来控制暴露出去的 API</li>
+<li> 每个 Service 都只负责自己功能下的小型数据库，可以灵活使用不同数据库种类来使系统发挥更好的性能 </li>
+<li> 系统权责明确，每个部件只需要维护自己的逻辑 </li>
+</ul>
+<p> 可提高的地方在 </p>
+<ul>
+<li> 底层难以对应到上层业务，Debug 复杂 </li>
+<li>HTTP 请求数量显著增多，使得系统性能降低 </li>
+<li> 开发、测试难度提高，LOG 增多 </li>
+</ul></div><a href="/2016/05/12/SOA-%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84-Web-%E6%9E%B6%E6%9E%84/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/04/22/%E7%BB%99%E8%87%AA%E5%B7%B1%E7%94%BB%E5%9C%88/" class="post-title-link">给自己画圈</a><span class="post-info">2016年4月22日</span></h2><div class="post-content"><h2 id="给自己画圈，并不为牢"><a href="# 给自己画圈，并不为牢" class="headerlink" title="给自己画圈，并不为牢"></a>给自己画圈，并不为牢 </h2><p> 奇葩说里的一个论题很有意思，说 <a target="_blank" rel="noopener" href="https://www.iqiyi.com/v_19rroew0y8.html"> 婚后遇到自己的今生挚爱，你会怎么办？</a></p>
+<p>我会放弃，这段感情是我为自己画的圈，会这样做的有几种人，一种人是尚处懵懂，觉得好，那便是好，放手去做；一种人阅遍世间风尘，最后降落到属于自己的栖息地；还有一种，牵起你的手时，就已选择了放弃余生所有挚爱。</p>
+<p>我便是最后那种。</p>
+<p>09 说的一生是抗争的一生，每个人都是，我不愿成为令我厌恶的一份子，我不愿成为孩子眼中那样的父亲，一个令人失望的家庭。</p></div><a href="/2016/04/22/%E7%BB%99%E8%87%AA%E5%B7%B1%E7%94%BB%E5%9C%88/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/04/21/Ukulele-%E9%98%B6%E6%AE%B5%E4%B8%80/" class="post-title-link">Ukulele 阶段一</a><span class="post-info">2016年4月21日</span></h2><div class="post-content"><p>总结了一些小发现</p>
+<h2 id="左手"><a href="#左手" class="headerlink" title="左手"></a>左手</h2><ul>
+<li>按弦不要太用力</li>
+<li>位置尽量靠近品码，但不要碰到</li>
+<li>手指尽量站立</li>
+</ul>
+<h2 id="古典指法"><a href="#古典指法" class="headerlink" title="古典指法"></a>古典指法</h2><ul>
+<li>古典指法比流行指法指位更好按，但很累大拇指，因为要时刻保持按压力，可以在移动手指的时候琴头不下落</li>
+</ul>
+<h2 id="流行指法"><a href="#流行指法" class="headerlink" title="流行指法"></a>流行指法</h2><ul>
+<li>大幅移动手指时，滑动虎口</li>
+</ul>
+<h2 id="扫弦"><a href="#扫弦" class="headerlink" title="扫弦"></a>扫弦</h2><ul>
+<li>手指内扣，侧面接触面越大声音越柔和</li>
+<li>直接用垂直的手指甲尖扫声音更尖锐</li>
+</ul>
+<h2 id="音"><a href="#音" class="headerlink" title="音"></a>音</h2><ul>
+<li>要让发声干净的话需要消除左手离弦发出的音，可以通过左手/右手制音（弦轻轻按住，让其不出声）</li>
+</ul>
+<h2 id="脚"><a href="#脚" class="headerlink" title="脚"></a>脚</h2><ul>
+<li>用脚踩节奏，要稳</li>
+</ul></div><a href="/2016/04/21/Ukulele-%E9%98%B6%E6%AE%B5%E4%B8%80/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/04/09/Django-%E5%BC%B1%E5%AF%86%E7%A0%81%E6%A0%A1%E9%AA%8C%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="post-title-link">Django 弱密码校验那些事</a><span class="post-info">2016年4月9日</span></h2><div class="post-content"><p> 弱密码校验是 Django 1.9 新功能之一，可以通过 settings 中的 <code>AUTH_PASSWORD_VALIDATORS</code> 来开启。</p>
+<p> 以下是四个自带的校验器，当然也可以自己写校验器，只需要按照下述格式添加进去就可以做统一校验。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># settings.py</span></span><br><span class="line"><span class="attr">AUTH_PASSWORD_VALIDATORS</span> = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"># 用户属性相似验证，检查密码和一组用户的属性的相似性 </span></span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"># 最小长度验证，最小接受长度为 9</span></span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.MinimumLengthValidator&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;OPTIONS&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;min_length&#x27;</span>: <span class="number">9</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"># 常见密码验证，这个检查器会对比常用的弱密码，这些常用密码被 gzip 打包储存在 `django/contrib/auth/common-passwords.txt.gz` 中 </span></span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.CommonPasswordValidator&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"># 纯数字密码验证 </span></span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.NumericPasswordValidator&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p> 并不是直接 set_password 就会校验，而是需要在 set_password 前手动调用，用法如下 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib.auth.password_validation <span class="keyword">import</span> validate_password</span><br><span class="line"></span><br><span class="line">validate_password(password, user=<span class="literal">None</span>, password_validators=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure></div><a href="/2016/04/09/Django-%E5%BC%B1%E5%AF%86%E7%A0%81%E6%A0%A1%E9%AA%8C%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/04/07/Django-%E4%B8%AD-ModelForm-%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link">Django 中 ModelForm 的使用</a><span class="post-info">2016年4月7日</span></h2><div class="post-content"><p>@[toc]</p>
+<h1 id="什么是 -ModelForm"><a href="# 什么是 -ModelForm" class="headerlink" title="什么是 ModelForm"></a>什么是 ModelForm</h1><ul>
+<li>Model 在 Django 对应数据库模型<ul>
+<li>一个 Model 拥有多个 Model.Field</li>
+</ul>
+</li>
+<li>Form 在 Django 对应表单<ul>
+<li>一个 Form 拥有多个 Form.Field</li>
+</ul>
+</li>
+</ul>
+<p>ModelForm 即基于 Model 的 Form，把 Model 中的 Field 根据下图中的映射关系自动转化为 Form 中的 Field。<br><img src="/images/django/model-form-mapping.png" alt></p>
+<h1 id="为什么使用 -ModelForm"><a href="# 为什么使用 -ModelForm" class="headerlink" title="为什么使用 ModelForm"></a>为什么使用 ModelForm</h1></div><a href="/2016/04/07/Django-%E4%B8%AD-ModelForm-%E7%9A%84%E4%BD%BF%E7%94%A8/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/03/20/Ukulele-See-You-Again/" class="post-title-link">See You Again | Ukulele TAB 谱</a><span class="post-info">2016年3月20日</span></h2><div class="post-content"><p>最近还在练的一首 See You Again，很短，上手也快，能练习到一些滑音，锤音，很有意思，推荐大家来练习一下。另外，我的 Ukulele 直播暂时关闭一阵，等神功练就再来卖弄。</p>
+<p><img src="https://7xrt3i.com1.z0.glb.clouddn.com/ukulele/see-you-again.jpg" alt="see-you-again"></p>
+<p>直播有三四天了，每次播的时候心里都挺紧张，有点打鼓。是不是有人在看我直播？会不会觉得我玩的太烂就走了？是不是该切出去看看留言？什么？怎么没人留言？！总之分心的点很多，集中精神很难，十分不喜欢这种感觉，所以还是先单机线下练，练的还可以了再上来直播。</p></div><a href="/2016/03/20/Ukulele-See-You-Again/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/03/18/Ukulele-%E6%97%85%E8%A1%8C%E7%9A%84%E6%84%8F%E4%B9%89/" class="post-title-link">旅行的意义 | Ukulele TAB 谱</a><span class="post-info">2016年3月18日</span></h2><div class="post-content"><p>最近在练的一首歌，谱子来自<a target="_blank" rel="noopener" href="https://www.tanukulele.com/?p=4705">尤克里里小站</a>上<a target="_blank" rel="noopener" href="https://www.shushuma.com/">马叔叔</a>的教程，顺手开了个<a target="_blank" rel="noopener" href="https://www.douyutv.com/notme">斗鱼直播</a>，没事的话晚上7点-9点会出来露脸，把自己练U的过程分享给大家，跟大家交流交流学习 Ukulele 的经验。</p>
+<p>这个谱子对于我现在的水平还是略难，<ruby>(≧ω≦)/<rp> (</rp><rt>nǔ lì liǎn</rt><rp>) </rp></ruby></p>
+<ul>
+<li>扫弦力度不均匀</li>
+<li>把位切换困难，特别高低把位切换（高把位不熟悉）</li>
+<li>读 TAB 谱不顺溜</li>
+</ul>
+<p>要练的注意</p>
+<ul>
+<li>需要熟练切音</li>
+<li>并非单一节奏型</li>
+<li>高把位 | 低把位 混合</li>
+</ul>
+<p>话不多说，把谱子先上了，图片觉得小的话可以试试浏览器的放大功能，<code>Ctrl</code> <code>+</code></p>
+<p><img src="https://7xrt3i.com1.z0.glb.clouddn.com/ukulele/%E6%97%85%E8%A1%8C%E7%9A%84%E6%84%8F%E4%B9%89.jpg" alt="旅行的意义"></p></div><a href="/2016/03/18/Ukulele-%E6%97%85%E8%A1%8C%E7%9A%84%E6%84%8F%E4%B9%89/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/03/14/%E8%B5%B0%E5%87%BA%E5%80%BE%E6%96%9C%E7%9A%84%E4%B8%96%E7%95%8C/" class="post-title-link">走出倾斜的世界</a><span class="post-info">2016年3月14日</span></h2><div class="post-content"><p>最近疯狂动物城很火，今天读到了篇影评，讲职场女性、独立和偏见，写的很深入，这个话题在生活中很少去提及，读完自己也有点想法。</p>
+<p>它的可怕之处在于让宿主看不清真正的自己，甚至自己都不自知，是一个典型的社会产物。人们从来都拿自己的际遇站队，而其中大多都未曾有机会去到天平另一端，那里的滋味如何更是无从说起。它已经混在社会的自私基因中，没人说起，却又分分钟以刺眼的姿态出现。</p>
+<p>记得<strong>《沉默的代价》</strong>吗？它讲人类群体性的自私，也是一种更广义的偏见。</p>
+<blockquote>
+<p>起初他們抓了所有的共產黨人；<br>我沒有出聲，<br>因為我不是共產黨人。<br>接著他們抓了所有的猶太人；<br>我沒有出聲，<br>因為我不是猶太人。<br>然後他們抓了所有的工會骨幹；<br>我沒有出聲，<br>因為我不是工會骨幹。<br>後來他們抓了所有的天主教徒；<br>我沒有出聲，<br>因為我屬於新教。<br>最後他們來抓我；<br>到那時候，<br>已經沒有剩下能出聲講話的人了。</p>
+</blockquote>
+<p>性别歧视、生理歧视、猎奇心理都属偏见，拿我自己来说，我发现了自己有猎奇心理，来源于好奇。它出现时我自己压根毫无感知，事后想想才觉得自己表现很异常。比如看到一些没怎么接触过的人（和尚、同性恋、外国人、有明显残疾的人），自己的猎奇心理控制不住，会去观察，即使我的内心拒绝对人的过度观察。</p>
+<p>想要走出倾斜的世界，观察可以有，但不应该是猎奇的衍生，如果第一次接触的出发点就定在猎奇上，这次接触在你眼里的走向很有可能是自己下意识的杜撰而非客观事实。拿陈冠希来说，艳照门之前我对他的了解仅限于几部电影中的出色演出，之后被媒体刷为乱交、贵圈真乱、流出、张柏芝 等，这个印象一直持续到一篇来自<a target="_blank" rel="noopener" href="https://showstudio.com/">SHOWstudio</a>的<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MjM5MzA0NDA4MA==&mid=405861323&idx=1&sn=41fae1b0f568cfc100d8a69af594bf82">采访</a>，作为事件起因的陈冠希讲述了事件发生后媒体、朋友、政府、家人都做了些什么，以及自己对事件的看法。看完以后我不免有些路转粉，他对传统文化中保守的理解，对青年文化的理解，对自我的挖掘，都是很有借鉴意义的。特别是一路走来，从短时间内获得了一切的富二代一线明星到艳照门曝光被迫退出演艺圈再到成功转型创作者复出演艺圈，都展示出对自己人生、事业的态度和信心。我想对他的偏见已经消失了，那么这个偏见是哪里来的呢？</p>
+<ol>
+<li>对他不了解，但他属于贵圈</li>
+<li>对贵圈不了解，但贵圈有很多**方面的新闻</li>
+<li>既然他属于贵圈，那么肯定有这方面的大环境属性（偏见）</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Guiquan</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line"></span><br><span class="line">    sexual_life = <span class="string">&#x27;chaos&#x27;</span></span><br><span class="line">    mind = <span class="string">&#x27;selfish&#x27;</span></span><br><span class="line">    drug = <span class="literal">True</span></span><br><span class="line">    interest = [<span class="string">&#x27;power&#x27;</span>, <span class="string">&#x27;money&#x27;</span>, <span class="string">&#x27;sex&#x27;</span>, <span class="string">&#x27;drug&#x27;</span>, <span class="string">&#x27;fame&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    appearance = <span class="number">50</span></span><br><span class="line">    talent = <span class="number">50</span></span><br><span class="line">    ambition = <span class="number">50</span></span><br><span class="line">    wealth = <span class="number">50</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, appearance, talent, ambition, wealth</span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.appearance = appearance</span><br><span class="line">        self.talent = talent</span><br><span class="line">        self.ambition = ambition</span><br><span class="line">        self.wealth = wealth</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ec = Guiquan(<span class="string">&#x27;Edison Chen&#x27;</span>, <span class="number">90</span>, <span class="number">90</span>, <span class="number">90</span>, <span class="number">90</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然而很多人下面就不看了，没兴趣看因为不够爆</span></span><br><span class="line">ec.mind = [<span class="string">&#x27;western&#x27;</span>, <span class="string">&#x27;logical&#x27;</span>, <span class="string">&#x27;revolution&#x27;</span>]</span><br><span class="line">ec.interests = [<span class="string">&#x27;sex&#x27;</span>, <span class="string">&#x27;youth culture&#x27;</span>, <span class="string">&#x27;design&#x27;</span>, <span class="string">&#x27;personal_life&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这个例子对我很有思考意义，我的猎奇心理成功被媒体给爆点引导过去，而没有去深究下面很多东西。现在的快餐文化让人们的兴趣停留时间急剧缩短，只有引爆眼球的才能出位，然而对于观众来讲是汲取不到什么营养的，同样猛灌鸡汤的一些大V/公众号的运营也大多参考了这种消费心理，可以迅速获粉。</p>
+<p>那么我们可以做些什么？</p>
+<ul>
+<li>增长见识<ul>
+<li>读书</li>
+<li>和更多类型/身份/处境的人交流</li>
+<li>挖掘一些肉眼看得见或者看不见的东西</li>
+</ul>
+</li>
+<li>主动尝试走出舒适区，给自己一试的勇气<ul>
+<li>舒适区这个东西，跟海绵是一个道理，你不突破它，它就不断吸水巩固自己，最终重到把人死死包围，再也推不开，那个时候再想走出去的话已经难上加难了，每一拳挥上去都被惰性扯掉50%的力道，再被海绵卸去30%的锋利，余力被完整地反弹回来。</li>
+</ul>
+</li>
+<li>坚持用自己的知识去做判断，全面考虑后做出决定，相信自己的判断</li>
+<li>尝试从多个角度看问题</li>
+<li>写博客把自己的思路记下来，或许对别人有益呢</li>
+</ul>
+<p>我在学校里就很喜欢记一些想法，和顾灵通、赵潇潇、周小迪他们相互交换周记来看，想想觉得十分有趣，偶尔翻翻彼时的心思，虽然幼稚，但还是很喜欢那样的自己和大家的。有时甚至入了迷，仿佛在看另外一个人的笔记一样。建这个博客的初衷也是为了让自己养成记录的习惯，不让自己受困温水之中，去认识一些喜欢记录想法的朋友，去更多地认识自己，过好生活。</p>
+<p>写了这么多，不知不觉已经很晚了，外面是三月清冷明亮的夜，都说上海没有春秋，只有冬夏。我坐在窗边，在这个不存在的季节，掸掸灰尘上路了。</p></div><a href="/2016/03/14/%E8%B5%B0%E5%87%BA%E5%80%BE%E6%96%9C%E7%9A%84%E4%B8%96%E7%95%8C/" class="read-more">read more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2013/05/10/%E5%B0%B1%E6%98%AF%E7%94%A8%E6%9D%A5%E6%80%80%E5%BF%B5%E7%9A%84/" class="post-title-link">就是用来怀念的</a><span class="post-info">2013年5月10日</span></h2><div class="post-content"><p> 绳命节拍走进伏笔，此处《A.I.N.Y.》。<br> 前一阵看了《致青春》，很美好，不完美的青春和各有好坏的结局。<br> 网上看到很多人讨论是选林静还是陈孝正，其实最后我觉的她一个都不会选，青春就是用来怀念的，这些往事伤心也好，幸福也好，伴随微微的成熟，也都看的淡了，全部这些她只是默默保存着，重情的本性也是。<br> 整个电影讲的无非从嚣张到温和，从张扬到收敛，从理想到现实，人们都这么走过来，一个转身，就只有以前自己的影子在走，夕阳孤独明媚肩膀都叠在一起成了一个重重的重影。<br> 希望所有朋友们都安好，很久不见的大家，下次我会带更多好玩的，一定要来啊；）都准备好了吗《FADE TO BLACK》</p>
+<blockquote>
+<p> 潇：最新的是 2013 年的呐，看来你似乎也慢慢不写了 </p>
+</blockquote>
+</div><a href="/2013/05/10/%E5%B0%B1%E6%98%AF%E7%94%A8%E6%9D%A5%E6%80%80%E5%BF%B5%E7%9A%84/" class="read-more">read more</a></article></li></ul></main><footer><div class="paginator"><a href="/page/3/" class="prev">← 看看近况</a><a href="/page/5/" class="next">翻翻旧账 →</a></div><div class="copyright"><p>© 2016 - 2022 <a href="https://blog.filosfino.com">filosfino</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-94010149-1",'auto');ga('send','pageview');</script></body></html>

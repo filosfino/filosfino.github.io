@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>项目中究竟需要哪几种 lint？ · Filosfino</title><meta name="description" content="项目中究竟需要哪几种 lint？| |filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/images/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css"><link rel="alternate" type="application/atom+xml" href="https://blog.filosfino.com/atom.xml" title="Filosfino"><meta name="generator" content="Hexo 5.4.2"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/images/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://www.zhihu.com/people/zheduanyin/activities" target="_blank" class="nav-list-link">ZHIHU</a></li><li class="nav-list-item"><a href="https://twitter.com/filosfino" target="_blank" class="nav-list-link">TWITTER</a></li><li class="nav-list-item"><a href="https://github.com/filosfino" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul><div class="subtitle">喜欢观察世界，也出走过青铜时代、梦马臆想</div></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">项目中究竟需要哪几种 lint？<span class="post-info">2020年5月28日</span></h1><a class="link"></a><div class="post-content"><h2 id="lint- 指什么？"><a href="#lint- 指什么？" class="headerlink" title="lint 指什么？"></a>lint 指什么？</h2><p>通常意义上讲，lint 在软件行业中是指从代码的静态分析中检测出潜在的问题，包括</p>
+<ul>
+<li>特定逻辑的写法</li>
+<li>设计模式的使用</li>
+<li>编程范式的使用</li>
+<li>变量命名的方式</li>
+<li>代码风格的规定</li>
+<li>…</li>
+</ul>
+<h2 id="我们对 -lint- 的诉求是什么？"><a href="# 我们对 -lint- 的诉求是什么？" class="headerlink" title="我们对 lint 的诉求是什么？"></a>我们对 lint 的诉求是什么？</h2><ul>
+<li>易于拓展</li>
+<li>社区活跃</li>
+<li>配置灵活</li>
+</ul>
+<h2 id="团队内部开发时有哪些实践？"><a href="# 团队内部开发时有哪些实践？" class="headerlink" title="团队内部开发时有哪些实践？"></a>团队内部开发时有哪些实践？</h2><ul>
+<li>区分 coding / pre-commit hook / ci / nightly run 四套 lint 规则<ul>
+<li>coding 为了减少干扰，stylistic lint 都设置为 warn</li>
+<li>pre-commit hook 为了减少 lint 占用时间，禁用类型相关的 lint (同时提供手动触发全量 lint 的 script)</li>
+<li>ci 为了统一代码风格、减少冲突和 reviewer 痛苦，把 stylistic lint 打开</li>
+<li>nightly run 集成类似 sonar.js / deprecated 这种高级 lint，形成 report 来提供代码质量 overview 及些许 insight</li>
+</ul>
+</li>
+<li>对注释的 lint</li>
+<li>对 deprecated 的 lint</li>
+<li>内部需要的自定义 lint</li>
+<li>定期做 code review，回顾一些典型错误</li>
+</ul>
+<h2 id="一些想法"><a href="# 一些想法" class="headerlink" title="一些想法"></a>一些想法 </h2><p> 区分这么多是为了在开发效率和代码质量的强检查之间做 tradeoff，如果大家的机器都很好，有资源在本地跑各种 lint 就没必要分的那么细了。一般对开源项目来讲，开发者的环境比较未知，给一套统一的就足够了，好处是无需配置多套 lint 的工作量，本地和 CI 一致。</p>
+<p>代码风格的选择往往并不是有公认的最优选择的，而是权衡考虑各方面，包括编程者的知识背景、对编码风格的认知、在工程上的好处等等。虽然代码风格没有绝对的好坏，统一的代码风格在工程中有着不可替代的优势的，无论是在阅读、重构、搜索或者追溯性上。代码写多的人有一种代码的直觉，各种 pattern 了然于胸，借助它们来帮助快速理解代码，但即使这样，也许要考虑到不太熟悉项目的团队成员，代码中花里胡哨的写法、技术债、hack 写法、历史包袱等等脱离注释或文档是很难再被理解的，需要借助良好的书写方式、遵从特定的规范来书写，以起到帮助读者理解的作用。</p>
+<hr>
+<p>延伸阅读</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/10797189/">编写可读代码的艺术</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/4199741/">Clean Code</a></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2021/01/24/2020%E5%9B%9E%E9%A1%BE/" class="prev">← 2020 回顾</a><a href="/2020/05/05/%E5%8F%8D%E6%80%9D%E7%9A%84%E4%B9%A0%E6%83%AF/" class="next">反思的习惯 →</a></div><hr><div class="tagcloud"><p>随意看看</p><a href="/tags/AI/" style="font-size: 12px; color: #808080">AI</a> <a href="/tags/Architecture/" style="font-size: 12px; color: #808080">Architecture</a> <a href="/tags/Career/" style="font-size: 12px; color: #808080">Career</a> <a href="/tags/Comics/" style="font-size: 14.88px; color: #707070">Comics</a> <a href="/tags/Craft/" style="font-size: 23.5px; color: #404040">Craft</a> <a href="/tags/Diary/" style="font-size: 35px; color: #000">Diary</a> <a href="/tags/Django/" style="font-size: 14.88px; color: #707070">Django</a> <a href="/tags/Dota/" style="font-size: 14.88px; color: #707070">Dota</a> <a href="/tags/Game/" style="font-size: 29.25px; color: #202020">Game</a> <a href="/tags/Music/" style="font-size: 12px; color: #808080">Music</a> <a href="/tags/NLP/" style="font-size: 12px; color: #808080">NLP</a> <a href="/tags/Piano/" style="font-size: 12px; color: #808080">Piano</a> <a href="/tags/Programming/" style="font-size: 12px; color: #808080">Programming</a> <a href="/tags/Python/" style="font-size: 12px; color: #808080">Python</a> <a href="/tags/Quotation/" style="font-size: 32.13px; color: #101010">Quotation</a> <a href="/tags/Reading/" style="font-size: 29.25px; color: #202020">Reading</a> <a href="/tags/Rust/" style="font-size: 12px; color: #808080">Rust</a> <a href="/tags/Tech/" style="font-size: 20.63px; color: #505050">Tech</a> <a href="/tags/Thought/" style="font-size: 26.38px; color: #303030">Thought</a> <a href="/tags/Ukulele/" style="font-size: 17.75px; color: #606060">Ukulele</a><a target="_blank" rel="noopener" href="//program-think.blogspot.com/" class="link">编程随想</a><a target="_blank" rel="noopener" href="//blog.farmostwood.net/" class="link">木遥的窗子</a><a target="_blank" rel="noopener" href="//plantain-00.github.io/" class="link">plantain-00</a><a target="_blank" rel="noopener" href="//morningchen.com/" class="link">西西君</a></div><hr><div id="disqus_thread"></div><script>var disqus_shortname = 'filosfino';
+var disqus_identifier = '2020/05/28/项目中究竟需要哪几种lint？/';
+var disqus_title = '项目中究竟需要哪几种 lint？';
+var disqus_url = 'https://blog.filosfino.com/2020/05/28/项目中究竟需要哪几种lint？/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//filosfino.disqus.com/count.js" async></script><div class="copyright"><p>© 2016 - 2022 <a href="https://blog.filosfino.com">filosfino</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-94010149-1",'auto');ga('send','pageview');</script></body></html>

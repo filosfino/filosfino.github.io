@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Django 中 ModelForm 的使用 · Filosfino</title><meta name="description" content="Django 中 ModelForm 的使用| |filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/images/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css"><link rel="alternate" type="application/atom+xml" href="https://blog.filosfino.com/atom.xml" title="Filosfino"><meta name="generator" content="Hexo 5.4.2"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/images/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://www.zhihu.com/people/zheduanyin/activities" target="_blank" class="nav-list-link">ZHIHU</a></li><li class="nav-list-item"><a href="https://twitter.com/filosfino" target="_blank" class="nav-list-link">TWITTER</a></li><li class="nav-list-item"><a href="https://github.com/filosfino" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul><div class="subtitle">喜欢观察世界，也出走过青铜时代、梦马臆想</div></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Django 中 ModelForm 的使用<span class="post-info">2016年4月7日</span></h1><a class="link"></a><a class="link"></a><div class="post-content"><p>@[toc]</p>
+<h1 id="什么是 -ModelForm"><a href="# 什么是 -ModelForm" class="headerlink" title="什么是 ModelForm"></a>什么是 ModelForm</h1><ul>
+<li>Model 在 Django 对应数据库模型<ul>
+<li>一个 Model 拥有多个 Model.Field</li>
+</ul>
+</li>
+<li>Form 在 Django 对应表单<ul>
+<li>一个 Form 拥有多个 Form.Field</li>
+</ul>
+</li>
+</ul>
+<p>ModelForm 即基于 Model 的 Form，把 Model 中的 Field 根据下图中的映射关系自动转化为 Form 中的 Field。<br><img src="/images/django/model-form-mapping.png" alt=""></p>
+<h1 id="为什么使用 -ModelForm"><a href="# 为什么使用 -ModelForm" class="headerlink" title="为什么使用 ModelForm"></a>为什么使用 ModelForm</h1><p>利用 Model 生成 Form，提高 Model 复用性</p>
+<h1 id="如何使用 -ModelForm"><a href="# 如何使用 -ModelForm" class="headerlink" title="如何使用 ModelForm"></a>如何使用 ModelForm</h1><h2 id="定义 -ModelForm"><a href="# 定义 -ModelForm" class="headerlink" title="定义 ModelForm"></a>定义 ModelForm</h2><p>举一个书籍管理例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Model</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Article</span>(models.Model):</span><br><span class="line">    title = models.CharField(max_length=<span class="number">20</span>, unique=<span class="literal">True</span>)</span><br><span class="line">    author = models.ForeignKey(<span class="string">&#x27;Author&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这个 Model 中定义了两个字段</p>
+<ul>
+<li>title<ul>
+<li>储存书籍标题</li>
+<li>数据类型是 char</li>
+<li>最大长度 20</li>
+<li>数据库唯一值限制，即不能储存两本相同标题的书</li>
+</ul>
+</li>
+<li>author<ul>
+<li>储存书籍的作者</li>
+<li>数据类型是外键，指向 Model <code>Author</code></li>
+</ul>
+</li>
+</ul>
+<p>下面我们用 ModelForm 构建表单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ModelForm</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleForm</span>(forms.ModelForm):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Article</span><br></pre></td></tr></table></figure>
+
+<p>和下面手动构建表单的代码等效</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleForm</span>(forms.Form):</span><br><span class="line">    title = forms.CharField(max_length=<span class="number">20</span>)</span><br><span class="line">    author = forms.ModelChoiceField(queryset=Author.objects.<span class="built_in">all</span>())</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="定制 -ModelForm"><a href="# 定制 -ModelForm" class="headerlink" title="定制 ModelForm"></a>定制 ModelForm</h2><p>很多情况下自动生成的 ModelForm 并不能满足设计要求，下面我们来讲一下如何定制</p>
+<p>定制有两种方式</p>
+<ul>
+<li>Meta<ul>
+<li>使用 Model 转化的时候自定义转化规则</li>
+</ul>
+</li>
+<li>自定义字段<ul>
+<li>定义额外的 Field，会覆盖 Model 自动生成的 Field</li>
+</ul>
+</li>
+</ul>
+<h3 id="Meta"><a href="#Meta" class="headerlink" title="Meta"></a>Meta</h3><p>ModelForm 是通过 Meta 来把 Model.Field 自动转化为 Form.Field 的，其中涉及到几步转化</p>
+<ul>
+<li>validators 不变</li>
+<li>添加 widget 属性<ul>
+<li>即前端的渲染方式</li>
+</ul>
+</li>
+<li>修改 Model 包含的字段<ul>
+<li>通过 fields 来拿指定字段</li>
+<li>通过 exclude 来排除指定字段</li>
+</ul>
+</li>
+<li>修改错误信息</li>
+</ul>
+<p>我们通过下面的例子来看一下如何通过 Meta 来定制 ModelForm</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleForm</span>(forms.ModelForm):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        <span class="comment"># 指定 Model</span></span><br><span class="line">        model = Article</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Form 需要 Model 中的哪几个 Field</span></span><br><span class="line">        fields = [<span class="string">&#x27;title&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Form 排除 Model 中的哪几个 Field</span></span><br><span class="line">        exclude = [<span class="string">&#x27;author&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 自定义错误信息</span></span><br><span class="line">        error_messages = &#123;</span><br><span class="line">            <span class="string">&#x27;invalid&#x27;</span> = <span class="string">&#x27;invalid title&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 自定义 widget</span></span><br><span class="line">        <span class="comment"># 这里使用了长 80 列，宽 20 行的 textarea</span></span><br><span class="line">        widgets = &#123;</span><br><span class="line">            <span class="string">&#x27;name&#x27;</span>: Textarea(attrs=&#123;<span class="string">&#x27;cols&#x27;</span>: <span class="number">80</span>, <span class="string">&#x27;rows&#x27;</span>: <span class="number">20</span>&#125;),</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Meta 的缺点是不能修改字段的 validators，如果需要自定义 validators，需要在 Meta 外部重新定义一个同名 Field 来覆盖自动生成的 Field</p>
+</blockquote>
+<h3 id="在 -Form- 中另外定义 -Field"><a href="# 在 -Form- 中另外定义 -Field" class="headerlink" title="在 Form 中另外定义 Field"></a>在 Form 中另外定义 Field</h3><p>这是 Form 中定义 Field 的通用方法，在 ModelForm 中它有两个作用</p>
+<ul>
+<li>补充 Model 没有的 Field 到 Form</li>
+<li>覆盖 Model 中的同名 Field 定义</li>
+</ul>
+<p>且看下面的例子，Article 中已经包含了 title 字段，我们在 ModelForm 中重新定义了它，把 CharField 改为了 ChoiceField，并且自定义了 validators。</p>
+<blockquote>
+<p>覆盖 title 的时候，把 title 从 Meta 中 exclude 掉是可选的，去不去掉的区别在于，你是否需要它为你校验 <code>unique=True</code> 这个数据库级限制。<br>在这里我们需要校验，因为 ModelForm 校验通过后我需要把它存入数据库，如果这里没有校验的话，碰到同标题的书数据库就会在储存时报错，我们希望把这步校验放在 ModelForm 的校验中，而不是在通过校验后再用 <code>try... catch...</code> 来捕获它。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleForm</span>(forms.ModelForm):</span><br><span class="line">    title = forms.ChoiceFied(choices=((<span class="number">1</span>, <span class="string">&#x27;alice&#x27;</span>), (<span class="number">2</span>, <span class="string">&#x27;bob&#x27;</span>),), validators=MaxValueValidator(<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Article</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="值得一提的一些 -Field- 转化"><a href="# 值得一提的一些 -Field- 转化" class="headerlink" title="值得一提的一些 Field 转化"></a>值得一提的一些 Field 转化 </h2><h3 id="AutoField"><a href="#AutoField" class="headerlink" title="AutoField"></a>AutoField</h3><p> 该 Field 不会出现在 ModelForm 表单中。</p>
+<blockquote>
+<p>所有 <code>editable=False</code> 的 Field 都不会出现在 ModelForm 中。</p>
+</blockquote>
+<h3 id="BooleanField"><a href="#BooleanField" class="headerlink" title="BooleanField"></a>BooleanField</h3><p>由于表单提交时统一识别为 string，而 <code>BooleanField</code> 是用 python 中的 <code>bool</code> 来判断的，所以只要传了任意非空值，<code>BooleanField</code> 都会当做 True 来处理，而如果传了空值，由于 <code>forms.Field</code> 默认属性是 <code>required=True</code>，会校验失败，所以如果你需要一个可以填 False 的 Field，那么你需要在 Form 中手动设置这个 Field 的 <code>required=False</code>。</p>
+<h3 id="ForeignKey"><a href="#ForeignKey" class="headerlink" title="ForeignKey"></a>ForeignKey</h3><p>ForeignKey 自动转化为 ModelChoiceField，用下拉选项菜单渲染，默认渲染出来的选项显示为对应 Field 的 <code>__str__</code>，提交的值为对应 Field 的 <code>id</code>，这些都可以定制。</p>
+<p>在后端接收提交的时候会自动在对应的 Model 中用 id 去找，如果没找到则抛出 ValidationError。</p>
+<h3 id="ManyToManyField"><a href="#ManyToManyField" class="headerlink" title="ManyToManyField"></a>ManyToManyField</h3><p>ManyToManyField 自动转化为 ModelMultipleChoiceField，用多选框渲染，同样默认渲染出来的选项显示为对应 Field 的 <code>__str__</code>，提交的值为对应 Field 的 <code>id</code> 值。</p>
+<p>比如有个叫 group 的 ManyToManyField，选中了 <code>&#39;finance&#39;</code> <code>&#39;develop&#39;</code> 这两个选项，他们的 id 分别为 1 和 2，那么世界上提交的表单 QueryString 就是 <code>group=1&amp;group=2</code></p>
+<h2 id="初始化 -ModelForm"><a href="# 初始化 -ModelForm" class="headerlink" title="初始化 ModelForm"></a>初始化 ModelForm</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">form = ArticleForm(request.POST)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">article = Article.objects.get(pk=<span class="number">1</span>)</span><br><span class="line">author = Author.objects.first()</span><br><span class="line"></span><br><span class="line">form = ArticleForm(request.POST, instance=article, initial=&#123;<span class="string">&#x27;author&#x27;</span>: author&#125;)</span><br><span class="line"><span class="comment"># form 绑定到 article 实例了</span></span><br><span class="line"><span class="comment"># 初始化表单的时候，author 字段的初始值为 author</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> form.is_valid():</span><br><span class="line">    form.save()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>instance<ul>
+<li>给 ModelForm 初始化 Model 实例，后续的操作都作用在这个实例上</li>
+</ul>
+</li>
+<li>initial<ul>
+<li>给 ModelForm 初始值</li>
+<li>如果和 instance 同时被定义，同名 field 的值覆盖 instance 中的值</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>数据加载的先后顺序为 instance, initial, request.POST</p>
+</blockquote>
+<h2 id="校验 -ModelForm"><a href="# 校验 -ModelForm" class="headerlink" title="校验 ModelForm"></a>校验 ModelForm</h2><blockquote>
+<p>Form 只会检查内部定义过的 Field，request.POST 中其余 keyword 都会被无视和过滤掉，即不会出现在返回的 cleaned_data 中。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">form = ArticleForm(request.POST)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 校验表单</span></span><br><span class="line"><span class="keyword">if</span> form.is_valid():</span><br><span class="line">    <span class="comment"># 保存到数据库</span></span><br><span class="line">    article = form.save()</span><br></pre></td></tr></table></figure>
+
+<p><code>is_valid()</code> 会调用 <code>full_clean()</code>来对表单进行全面校验，它又分成三步（定义在基类 Form 中）</p>
+<ol>
+<li>根据每个 Field 注册的 validators 做单个 Field 的校验 (比如 title 字段就会校验是否超出最大允许长度 20) 其中在 <code>Field.clean()</code> 执行过后提供了钩子 <code>clean_[field_name]</code>，可以自定义该 function 来注册自己的校验方法。</li>
+<li>根据 Form 定义的 Field 之间的依赖关系做整个表单的校验，钩子为 <code>clean()</code>，默认为空。</li>
+<li>自定义校验通过后的表单处理，钩子为 <code>_post_clean()</code><ul>
+<li>这一步中，ModelForm 做了一些额外的检验：如果定义在 Meta 中的 Field 有 <code>unique=True</code> 这个限制，那么 ModelForm 会按照现有数据库中的数据对其校验，看这个 Field 的值是否已存在，如果已存在，则抛出一个 <code>IntegrityError</code>。实际操作中如果强制不校验 unique 的话，可以把该字段从 Meta 中移除，在 ModelForm 中重新定义该字段。</li>
+</ul>
+</li>
+</ol>
+<h2 id="储存 -ModelForm- 对象"><a href="# 储存 -ModelForm- 对象" class="headerlink" title="储存 ModelForm 对象"></a>储存 ModelForm 对象 </h2><p> 调用 <code>save()</code> 的时候可以传入 <code>commit=False</code> 来避免立即储存，从而通过后续的修改或补充来得到完整的 Model 实例后再储存到数据库。</p>
+<p>如果初始化的时候传入了 instance，那么调用 <code>save()</code> 的时候会用 ModelForm 中定义过的字段值覆盖绑定实例的相应字段，并写入数据库。</p>
+<p><code>save()</code> 同样会帮你储存 ManyToManyField，如果 save 时使用了 <code>commit=False</code>，那么 ManyToManyField 的储存需要等该条目存入数据库之后手动调用 ModelForm 的 <code>save_m2m()</code> 方法。</p>
+<h2 id="定义一个 -Form- 来新建、更新实例"><a href="# 定义一个 -Form- 来新建、更新实例" class="headerlink" title="定义一个 Form 来新建、更新实例"></a>定义一个 Form 来新建、更新实例 </h2><p> 通常的步骤分为如下几步</p>
+<ul>
+<li>检测该对象是否已在数据库<ul>
+<li>如果已存在，那么手动获取该实例，然后更改相关 field 内容，最后使用 <code>update()</code> 方法保存到数据库</li>
+<li>如果不存在，新建一个 Model 实例并修改至完整的 Model，调用 <code>save()</code> 方法保存到数据库</li>
+</ul>
+</li>
+</ul>
+<p>写成代码的话是这样子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">f = AuthorForm(request.POST)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> f.is_valid():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Save the new instance.</span></span><br><span class="line">        new_author = f.save(commit=<span class="literal">False</span>)</span><br><span class="line">        new_author.some_field = f.cleaned_data[<span class="string">&#x27;some_field&#x27;</span>]</span><br><span class="line">        new_author.save()</span><br><span class="line">    <span class="keyword">except</span> IntegrityError:</span><br><span class="line">        <span class="comment"># 已存在</span></span><br><span class="line">        <span class="comment"># 若要这样使用 update 的话需要在 cleaned_data 中加入上述 some_field 的改动</span></span><br><span class="line">        <span class="comment"># 因为 some_field 的改动只在 new_author 中使用，并不能更新到数据库</span></span><br><span class="line">        Author.objects.<span class="built_in">filter</span>(pk=f.cleaned_data[<span class="string">&#x27;pk&#x27;</span>]).update(f.cleaned_data)</span><br></pre></td></tr></table></figure>
+
+<p>太麻烦了！！其实 Django 中已经有 <code>update_or_create</code> 方法已经实现了上述所有功能，可以避免这个 <code>try ... except ...</code> 判断实例是否已存在，我们来看这个例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># forms.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AuthorAddForm</span>(forms.ModelForm):</span><br><span class="line">    <span class="comment"># 确保 pk 不是必须字段</span></span><br><span class="line">    <span class="comment"># 如果不传，自动识别为 None</span></span><br><span class="line">    pk = forms.IntegerField(required=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Author</span><br><span class="line">        fields = [<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;address&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_post_clean</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(forms.ModelForm, self)._post_clean()</span><br><span class="line">        <span class="comment"># 不传 pk 的话表示需要新建一个条目</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.cleaned_data[<span class="string">&#x27;pk&#x27;</span>]:</span><br><span class="line">            <span class="comment"># 添加需要的 Field</span></span><br><span class="line">            self.cleaned_data[<span class="string">&#x27;Origin&#x27;</span>] = City.objects.get(Province=<span class="string">&#x27; 北京 &#x27;</span>, City=<span class="string">&#x27; 北京 &#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># views.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AuthorsView</span>(LoginRequiredMixin, TemplateView):</span><br><span class="line">    template_name = <span class="string">&#x27;authors.html&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self, request</span>):</span><br><span class="line">        form = AuthorAddForm(request.POST)</span><br><span class="line">        result = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> form.is_valid():</span><br><span class="line">            <span class="keyword">return</span> form.errors</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果 pk 不存在，为 None，那么 update_or_create 匹配失败，从而进入 create 流程</span></span><br><span class="line">        <span class="comment"># 否则 pk 存在表单中，那么尝试匹配数据库，如果命中，进行 update 操作，否则进行 create 操作</span></span><br><span class="line">        Author, created = Author.objects.update_or_create(pk=form.cleaned_data[<span class="string">&#x27;pk&#x27;</span>], defaults=form.cleaned_data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Author.pk</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>update_or_create</code> 通过检测所有非 defaults 的字段，在上述例子中就是 <code>id=form.cleaned_data[&#39;id&#39;]</code> 一项是否已存在于数据库而判断是用 <code>update()</code> 还是 <code>create()</code>，而不论是 <code>update()</code> 还是 <code>create()</code>，都会使用 cleaned_data 作为数据源来写入数据库。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2016/04/09/Django-%E5%BC%B1%E5%AF%86%E7%A0%81%E6%A0%A1%E9%AA%8C%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="prev">← Django 弱密码校验那些事</a><a href="/2016/03/20/Ukulele-See-You-Again/" class="next">See You Again | Ukulele TAB 谱 →</a></div><hr><div class="tagcloud"><p>随意看看</p><a href="/tags/AI/" style="font-size: 12px; color: #808080">AI</a> <a href="/tags/Architecture/" style="font-size: 12px; color: #808080">Architecture</a> <a href="/tags/Career/" style="font-size: 12px; color: #808080">Career</a> <a href="/tags/Comics/" style="font-size: 14.88px; color: #707070">Comics</a> <a href="/tags/Craft/" style="font-size: 23.5px; color: #404040">Craft</a> <a href="/tags/Diary/" style="font-size: 35px; color: #000">Diary</a> <a href="/tags/Django/" style="font-size: 14.88px; color: #707070">Django</a> <a href="/tags/Dota/" style="font-size: 14.88px; color: #707070">Dota</a> <a href="/tags/Game/" style="font-size: 29.25px; color: #202020">Game</a> <a href="/tags/Music/" style="font-size: 12px; color: #808080">Music</a> <a href="/tags/NLP/" style="font-size: 12px; color: #808080">NLP</a> <a href="/tags/Piano/" style="font-size: 12px; color: #808080">Piano</a> <a href="/tags/Programming/" style="font-size: 12px; color: #808080">Programming</a> <a href="/tags/Python/" style="font-size: 12px; color: #808080">Python</a> <a href="/tags/Quotation/" style="font-size: 32.13px; color: #101010">Quotation</a> <a href="/tags/Reading/" style="font-size: 29.25px; color: #202020">Reading</a> <a href="/tags/Rust/" style="font-size: 12px; color: #808080">Rust</a> <a href="/tags/Tech/" style="font-size: 20.63px; color: #505050">Tech</a> <a href="/tags/Thought/" style="font-size: 26.38px; color: #303030">Thought</a> <a href="/tags/Ukulele/" style="font-size: 17.75px; color: #606060">Ukulele</a><a target="_blank" rel="noopener" href="//program-think.blogspot.com/" class="link">编程随想</a><a target="_blank" rel="noopener" href="//blog.farmostwood.net/" class="link">木遥的窗子</a><a target="_blank" rel="noopener" href="//plantain-00.github.io/" class="link">plantain-00</a><a target="_blank" rel="noopener" href="//morningchen.com/" class="link">西西君</a></div><hr><div id="disqus_thread"></div><script>var disqus_shortname = 'filosfino';
+var disqus_identifier = '2016/04/07/Django-中-ModelForm-的使用/';
+var disqus_title = 'Django 中 ModelForm 的使用';
+var disqus_url = 'https://blog.filosfino.com/2016/04/07/Django-中-ModelForm-的使用/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//filosfino.disqus.com/count.js" async></script><div class="copyright"><p>© 2016 - 2022 <a href="https://blog.filosfino.com">filosfino</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-94010149-1",'auto');ga('send','pageview');</script></body></html>
