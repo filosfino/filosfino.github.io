@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="zh-cn" class="animation-prepared" data-astro-cid-e5lvscu2> <head><title>Filosfino</title><meta charset="utf-8"><link rel="canonical" href="https://blog.filosfino.com/2/"><meta name="description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="robots" content="index, follow"><meta property="og:title" content="Filosfino"><meta property="og:type" content="article"><meta property="og:image" content="https://blog.filosfino.com/placeholder.png"><meta property="og:url" content="https://blog.filosfino.com"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Filosfino" href="https://blog.filosfino.com/atom.xml"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.11.1"><meta name="twitter:image:src" content="https://blog.filosfino.com/placeholder.png"><meta name="twitter:image:alt" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="twitter:creator" content="@moeyua13"><meta name="twitter:site" content="@moeyua13"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Filosfino"><meta name="twitter:description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><script>(function(){const theme = "system";
+
+  function updateTheme(theme) {
+    // Check if theme is system
+    if (theme === 'system') {
+      // Check OS preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.classList.toggle('dark', prefersDark)
+      return
+    }
+    // Set theme directly
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+  }
+
+  // Initial theme setup
+  updateTheme(theme)
+
+  // Listen for OS theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (theme === 'system') {
+      document.documentElement.classList.toggle('dark', e.matches)
+    }
+  })
+})();</script><link rel="stylesheet" href="/_astro/_page_.CF_tjSKR.css"><script type="module" src="/_astro/page.BKLBU-BX.js"></script></head> <body class="h-100vh max-w-1200px min-w-390px mx-a" p="7.5 lg:y-0 lg:x-20" lg="grid gap-x-6 cols-[3fr_1fr] rows-[1fr_9rem]" data-astro-cid-e5lvscu2> <header class="transition-swup-header flex flex-col gap-2.5" m="7.5 lg:x-0 lg:t-20 lg:b-4" lg="row-1-2 col-2-3 justify-between items-start" data-astro-cid-e5lvscu2> <hgroup lg="write-vertical-right items-start b-l-2px b-l-primary text-left" flex="~ col gap-2.5" class="cursor-pointer text-center duration-800 ease-in-out"> <a class="not-underline-hover duration-800 ease-in-out" lg:p="x-2.5 b-12 hover:t-3.75 hover:b-8.75" hover:lg=" bg-primary color-background" href="/"> <h3 class="text-5 font-extrabold font-header">喜欢观察世界，也出走过青铜时代、梦马臆想</h3> <h1 class="text-8 font-extrabold font-header">Filosfino</h1> </a> </hgroup> <nav class="text-center font-bold" flex="~ col gap-4"> <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center"> <li> <a class="" href="/"> 文章 </a> </li><li> <a class="" href="/archive"> 归档 </a> </li><li> <a class="" href="/categories"> 分类 </a> </li><li> <a class="" href="/about"> 关于 </a> </li> </ul> <ul flex="~ row gap-1 justify-center"> <li> <a href="https://github.com/filosfino" target="_blank" title="github" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-github w-6 h-6">github</span> </a> </li><li> <a href="/atom.xml" target="_blank" title="rss" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-rss w-6 h-6">rss</span> </a> </li> </ul> </nav> </header> <main class="transition-swup-main overflow-y-scroll scrollbar-hide outline-none" lg="row-1-3 col-1-2 py-20 " data-astro-cid-e5lvscu2>  <section contain-layout flex="~ col gap-7.5"> <article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/学一门新语言/">学一门新语言</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2019-03-11</time> <a href="/categories/Rust">
+# Rust </a> </div> </header>  <p class="line-clamp-4">学哪门语言
+迫于业务代码海海望不到尽头，准备扩展一下视野学习一门其他语言。工作中使用的 Python 是一门强类型、带 GIL（全局解释器锁）、执行效率较低的动态语言，初步定位要接触的语言特性为
+
+并发友好
+
+感受各种并发模型和其上限
+支持灵活的变量可变性控制
+
+
+函数式编程友好
+静态检查
+
+保证语言效率
+
+
+
+读完《七周七语言》和《七周七并发模型》。直接上手纯函数式语言无疑是地狱难度，对于习惯了可变变量的程序员们，Clojure 这种非纯函数式语言用起来会比较舒服，在需要可变性的时候允许引入可变，还有 JAVA VM 类库支持。Erlang 中的 Let it crash 哲学和语言采用的 Actor 并发模型非常打动人，不间断服务，生产环境中超高的可用性都非常棒。
+简单翻看了一下国内很火的 Golang 和人气很高的 Rust，两个很有特色的语言。
+Golang 静态、不能写函数式，语</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/深度学习中的注意力机制/">深度学习中的注意力机制</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2018-01-13</time> <a href="/categories/深度学习">
+# 深度学习 </a><a href="/categories/注意力机制">
+# 注意力机制 </a><a href="/categories/机器学习">
+# 机器学习 </a> </div> </header>  <p class="line-clamp-4">转载自自然语言处理中的Attention Model：是什么及为什么 作者张俊林
+@[toc]
+最近两年，注意力模型（Attention Model）被广泛使用在自然语言处理、图像识别及语音识别等各种不同类型的深度学习任务中，是深度学习技术中最值得关注与深入了解的核心技术之一。
+本文以机器翻译为例，深入浅出地介绍了深度学习中注意力机制的原理及关键计算机制，同时也抽象出其本质思想，并介绍了注意力模型在图像及语音等领域的典型应用场景。
+注意力模型最近几年在深度学习各个领域被广泛使用，无论是图像处理、语音识别还是自然语言处理的各种不同类型的任务中，都很容易遇到注意力模型的身影。所以，了解注意力机制的工作原理对于关注深度学习技术发展的技术人员来说有很大的必要。
+人类的视觉注意力
+从注意力模型的命名方式看，很明显其借鉴了人类的注意力机制，因此，我们首先简单介绍人类视觉的选择性注意力机制。
+
+视觉注意</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/2017回顾/">2017回顾</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2018-01-02</time> <a href="/categories/Diary">
+# Diary </a> </div> </header>  <p class="line-clamp-4">@[toc]
+资产配置与收益
+今年的收益适中，大概在20%左右，大部分放在p2p+货币基金，平均在 7% 左右；少部分投了以太坊，虚拟货币的投资回报相当高，到年底大概是 350~400% 的收益；固收房租+车位的回报在上海的话还算可以，投资的是商住两用房，大概在4%，房价增值2%左右。明年会配置一些到股票上，减小货币基金的比例。
+成长
+专业技能
+
+《How to read a book》
+《重新定义公司》
+《创业维艰》
+《影响力》
+《TensorFlow实战》
+《Tensorflow：实战Google深度学习框架》
+Coursera deeplearning.ai 的深度学习课程
+《Kubernetes权威指南》
+《增长黑客》
+《算法》
+《Redis设计与实现》
+《数学之美》
+刷 leetcode
+Python 文档细读，新版本的新功能应用到项目中
+《好好说话》
+用 vue compone</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/python-的逆序-slice-切片/">Python 的逆序 slice 切片</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2017-12-28</time> <a href="/categories/Python">
+# Python </a> </div> </header>  <p class="line-clamp-4">@[toc]
+Python 的切片相信大家已经很熟悉了，语法是这样的a[[start]:[end][:[step]]]，其中索引为 end 的元素不会被包括进来。start、end、step 和 step 前面的冒号都可以省略。这么多可以省略的，那么解释器是怎么设置默认值的呢？很有趣，解释器对正序和逆序切片的默认值设置是不一样的，我们在实战中看结果吧。
+全文用到的变量 a 长这样：
+a=&quot;0123456789&quot;
+
+正序切片
+在正序切片中，默认值的设置为
+
+start = 0
+end = -1 后面一位，即切片会返回包括 str 最后一个元素
+step = 1
+
+其中 end 的默认值为 -1 后面一位是什么意思呢？这里的 -1 指的是 index 为 -1 的元素，即 str 的最后一个位置，在 a 中指的是 9 这个元素。那它后面一位是无意义的，但解释器执行的时候会切片到该元素的前一位，</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/沟通与公司体制/">沟通与公司体制</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2017-12-18</time> <a href="/categories/企业管理">
+# 企业管理 </a><a href="/categories/沟通">
+# 沟通 </a> </div> </header>  <p class="line-clamp-4">最近在读《创业维艰》 和《谈话的力量》。
+《创业维艰》是在创业圈很受好评的一本书，从 CEO 第一视角讲如何管理公司，面对危机的处理，如何看待员工和公司的关系等等创业必须面临的问题，深入且独到。作者本·霍洛维茨本人就是一个成功的连续创业者。
+
+读到 《创业公司为何要进行人员培训》 一章的时候，感觉被击中了，哦不，我想大多数公司都被击中了：我的上个东家的 CEO 是业务出身，刚进公司的时候有过一次培训，讲公司的宏图愿景讲的很不错，听完士气大振，但之后的一年多时间就再没有过。管理层也很少和员工沟通，员工一直做重复劳动，也不知道公司在做什么产品，自己能发挥什么能力，怎么样才算做得好，变得迷茫，士气极为低落，原因很简单：他们不知道做的产品在市场上表现如何，无法提高自身能力，也同样无法创造价值。技术部门的人员占了公司一大半，成为公司的负担，就在年前砍掉了技术部一半人员，理由已经十分充分了。我从里面 </p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/世界很大/">世界很大</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2017-12-05</time> <a href="/categories/Diary">
+# Diary </a> </div> </header>  <p class="line-clamp-4">第二次换工作，和第一次的时候心情很不一样。前些日子自己身体也不太好，爷爷又病发过世，让本就起伏的心更添了些烦恼。忙完回到上海，阳光很好，出奇的冷，冷的不像我认识的上海。
+从毕业开始逐渐认知这个世界，很多看法都变了，不止是金钱，工作，小孩，病痛，政府，关系，年龄越大，越觉得自己不应该属于那么小的舞台，应该去做一些想做的事情。比起其他人，我有条件也有资源去做。工作内容没必要被职业规划束缚，连贯并不是唯一途径。
+世界很大，带你去看看。
+</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/数据智能在期货市场的应用/">数据智能在期货市场的应用</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2017-11-09</time> <a href="/categories/AI">
+# AI </a><a href="/categories/期货">
+# 期货 </a> </div> </header>  <p class="line-clamp-4">在 AI 日趋成熟的今天，已经被广泛应用在语言、艺术、医学、金融、驾驶、风控、推荐、识别、计算机视觉等领域，本文将探讨 AI 在期货市场上的应用，以及一些 AI 帮你发现投资机会的小技巧。
+对一个市场的分析一般包括以下几个方面
+
+基本面
+技术面
+宏观
+突发事件
+投资者心态
+这几个方面之间相互联系，一个改变就会影响接下来的市场走势，比如宾汉峡谷铜矿（世界最大的人工矿场）发生工人罢工事件（突发事件），那么铜的主力期货市场很可能供不应求（基本面），导致价格升高（期货市场），从而引发一连串的下游产品价格升高（比如空调、汽车）。同样的传导可以从任何一个方面发生，并最终影响到市场及整个产业链。
+
+那么现在让 AI 来做的话，有哪些替代人类分析员的可能呢？
+准备
+首先分析之前，AI 可以做的有信息爬取、筛查、特征提取、主题相关度和热度分析，把和主题相关性最高的信息提取出来。这是最终分析有效性的基础，需要</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/期货行业知识/">期货行业知识</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2017-08-18</time> <a href="/categories/期货">
+# 期货 </a> </div> </header>  <p class="line-clamp-4">什么是有色金属
+
+工业上对金属的一种分类，生产基本原料，需求量很大的
+大宗商品
+
+@[toc]
+铜
+原料是铜精矿，纯度在 18%-30%
+按冶炼工艺分为
+
+阴极铜（又叫电解铜、火法铜）
+湿法铜
+
+阴极铜
+电解时阳极是铜，冶炼完后阳极会融化掉。
+工艺过程分为：熔炼、吹炼、火法冶炼、电解（精炼）
+纯度从 18%-99.99%
+速度快
+占全球产量80%
+出厂时是片状的，有吊耳
+一捆2.5吨，也是最小成交单位
+其中按纯度又分为
+
+升水铜
+用于电镀
+纯度高
+价格高
+平水铜
+用于铜管
+纯度稍低
+价格稍低
+
+湿法铜
+纯度比阴极铜低
+一般用于铜管
+工艺过程分为：铜矿-浸出-净化除杂-萃取-电解（精炼）
+电解时阳极不是铜
+杂质多一点，成品纯度比阴极铜低（1# 99.995%）
+速度慢
+工艺用的少
+生产、建厂成本低
+占全球产量20%
+中国不产
+铝
+抗氧化
+铝的产量比铜高很多
+中国4700万吨
+锌
+纯度 99.</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/影响力读后感/">《影响力》读后感</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2017-08-15</time> <a href="/categories/Reading">
+# Reading </a><a href="/categories/Thought">
+# Thought </a> </div> </header>  <p class="line-clamp-4">人际充满疑虑。最近在看 《Lying Man》 狼人杀局，从不同的视角看局的变化，各人的发言、伪装，对一个局中人员配置的理解、对于不同水平玩家发言的解读，很有趣。
+
+最近读了 《影响力》 ，书如其名，讲的是被影响这件事的前因后果，无论当事人有没有感受到，它就这么发生了。这种感觉往往稍纵即逝，书中抓住了它进行了详细的说明，从动物、人类、社会的发展等多个角度来切入，分析了“影响力”是如何从低级发展到高级，在人类社会中扮演愈发重要的结果的。其中包括
+
+依赖捷径
+
+逃避思考，从而遵从下意识的判断
+对比
+
+先看贵的再看便宜的，会放大便宜的更差的感觉，减小贵的很贵的感觉
+
+
+
+
+互惠
+
+心理基础：人情负债，内心的煎熬，他人的看法
+应用：相互退让（对方更满意）
+应用：免费试用
+应用：先大后小（形成对比，使小的更容易成交）
+
+
+承诺和一致
+
+心理基础：要与我们过去的所作所为保持一致，习惯是捷径，自我保护避</p>  </article><article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/小黄片/">小黄片</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2017-08-14</time> <a href="/categories/Thought">
+# Thought </a> </div> </header>  <p class="line-clamp-4">
+男人拖拉脚步在沙漠中行走，脚上拖着一条铁链，干锈又陈旧，在滚烫的沙地中发出咝咝的声音，听起来像要把嘴唇撕开。他低头走着，有两次回头看一眼铁链，它留下的痕迹一转眼就被炎热抚平了。只有沙子的话很容易走偏方向，回头尤其危险，那个人似乎没有导航设备，起码在我观察他的半个小时没有看到，而后普扑通一声，铁链声消失了。
+
+一部小黄片给了沙漠很多思绪，是城市给不了的一片土。
+睡了一个开阔的回笼觉，放空思绪的感觉真不错，尤其是三点一线的排斥期，我将来在做些什么呢？
+骑着单车透过楼宇树木的缝隙看到一点点夕阳，想起自己很久没有看过天空了，在宽阔的路上驰骋，以少年的姿势，松开一个把手，直起身子。
+</p>  </article> </section> <footer class="mt-5"> <div class="mb-2.5"> 第 2 页 / 共 15 页 </div> <div class="flex items-center gap-2"> <a title="上一页" href="/"> <span class="inline-block vertical-mid i-mdi-chevron-double-left w-4 h-4"></span> 上一页 </a> <a title="下一页" href="/3"> 下一页 <span class="inline-block vertical-mid i-mdi-chevron-double-right w-4 h-4"></span> </a> </div> </footer>  </main> <footer class="transition-swup-footer py-7.5" lg="row-2-3 col-2-3" data-astro-cid-e5lvscu2> <p data-astro-cid-gcn2mc3v>© 2026 <a target="_blank" href="https://blog.filosfino.com">filosfino</a></p><p data-astro-cid-gcn2mc3v>Theme <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by <a target="_blank" href="https://moeyua.com">Moeyua</a></p> </footer> <script type="module">document.addEventListener("animationend",e,!1);function e(){document.documentElement.classList.remove("animation-prepared"),document.removeEventListener("animationend",e,!1)}</script>  </body> </html>

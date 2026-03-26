@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="zh-cn" class="animation-prepared" data-astro-cid-e5lvscu2> <head><title>编程中要注意的工程要点</title><meta charset="utf-8"><link rel="canonical" href="https://blog.filosfino.com/posts/%E7%BC%96%E7%A8%8B%E4%B8%AD%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%B7%A5%E7%A8%8B%E8%A6%81%E7%82%B9/"><meta name="description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="robots" content="index, follow"><meta property="og:title" content="编程中要注意的工程要点"><meta property="og:type" content="article"><meta property="og:image" content="https://blog.filosfino.com/placeholder.png"><meta property="og:url" content="https://blog.filosfino.com"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Filosfino" href="https://blog.filosfino.com/atom.xml"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.11.1"><meta name="twitter:image:src" content="https://blog.filosfino.com/placeholder.png"><meta name="twitter:image:alt" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="twitter:creator" content="@moeyua13"><meta name="twitter:site" content="@moeyua13"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="编程中要注意的工程要点"><meta name="twitter:description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><script>(function(){const theme = "system";
+
+  function updateTheme(theme) {
+    // Check if theme is system
+    if (theme === 'system') {
+      // Check OS preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.classList.toggle('dark', prefersDark)
+      return
+    }
+    // Set theme directly
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+  }
+
+  // Initial theme setup
+  updateTheme(theme)
+
+  // Listen for OS theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (theme === 'system') {
+      document.documentElement.classList.toggle('dark', e.matches)
+    }
+  })
+})();</script><link rel="stylesheet" href="/_astro/_page_.CF_tjSKR.css">
+<style>.tk-meta-input{background-color:#fff}.code-container{position:relative}.clipboard-copy{position:absolute;top:.5rem;right:.5rem;width:1.75rem;height:1.75rem;display:flex;justify-content:center;align-items:center;border-radius:.25rem}.clipboard-copy:hover{background-color:#30363d}
+</style><script type="module" src="/_astro/page.BKLBU-BX.js"></script></head> <body class="h-100vh max-w-1200px min-w-390px mx-a" p="7.5 lg:y-0 lg:x-20" lg="grid gap-x-6 cols-[3fr_1fr] rows-[1fr_9rem]" data-astro-cid-e5lvscu2> <header class="transition-swup-header flex flex-col gap-2.5" m="7.5 lg:x-0 lg:t-20 lg:b-4" lg="row-1-2 col-2-3 justify-between items-start" data-astro-cid-e5lvscu2> <hgroup lg="write-vertical-right items-start b-l-2px b-l-primary text-left" flex="~ col gap-2.5" class="cursor-pointer text-center duration-800 ease-in-out"> <a class="not-underline-hover duration-800 ease-in-out" lg:p="x-2.5 b-12 hover:t-3.75 hover:b-8.75" hover:lg=" bg-primary color-background" href="/"> <h3 class="text-5 font-extrabold font-header">喜欢观察世界，也出走过青铜时代、梦马臆想</h3> <h1 class="text-8 font-extrabold font-header">Filosfino</h1> </a> </hgroup> <nav class="text-center font-bold" flex="~ col gap-4"> <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center"> <li> <a class="" href="/"> 文章 </a> </li><li> <a class="" href="/archive"> 归档 </a> </li><li> <a class="" href="/categories"> 分类 </a> </li><li> <a class="" href="/about"> 关于 </a> </li> </ul> <ul flex="~ row gap-1 justify-center"> <li> <a href="https://github.com/filosfino" target="_blank" title="github" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-github w-6 h-6">github</span> </a> </li><li> <a href="/atom.xml" target="_blank" title="rss" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-rss w-6 h-6">rss</span> </a> </li> </ul> </nav> </header> <main class="transition-swup-main overflow-y-scroll scrollbar-hide outline-none" lg="row-1-3 col-1-2 py-20 " data-astro-cid-e5lvscu2>   <article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/编程中要注意的工程要点/">编程中要注意的工程要点</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2020-03-10</time> <a href="/categories/编程">
+# 编程 </a><a href="/categories/工程">
+# 工程 </a> </div> </header>  <p>咕咕，我来了，带着写了一年的 typescript，不留一个 enum</p>
+<h2 id="库的依赖管理">库的依赖管理</h2>
+<p>库的依赖管理问题是我开始写非业务代码后遇到的第一个工程问题，它的复杂性在于保证依赖解析正确的前提下，怎么减少共用包的资源占用（存储、解析）。</p>
+<p><code>python</code> / <code>js</code> 在引包的时候不会带上版本，只用包名称来 <code>resolve</code>，版本控制放在项目中，让项目环境来保证版本正确性。</p>
+<blockquote>
+<p>每种语言都需要一个合适的包管理器。</p>
+</blockquote>
+<p>好处包括</p>
+<ol>
+<li>升级依赖时，如果版本是兼容的，那么代码不需要改，对于项目管理来讲是很简便的</li>
+<li>节省存储、运行时资源，同一个库可以被多个使用者共享（动态链接的方式</li>
+</ol>
+<p>坏处有</p>
+<ol>
+<li>环境管理的复杂性带到开发时、发布时、运行时。首先开发者需要工具来管理开发时依赖、固定依赖库的版本、方便地定制库的 <code>resolve</code> 方式（比如 <code>resolve</code> 到一个本地路径，一个网络地址等等）；发布的时候需要维护发行版本和底层依赖的版本的对应关系、兼容关系、需要保证 <code>deterministic build</code>；运行时用户需要确保本机环境已经具备运行的依赖条件，引申出去的需求有环境隔离、同一个库的多个版本怎么 <code>resolve</code> 等等。</li>
+<li>依赖约定规则来定义兼容性，比如语义版本 <code>semver</code></li>
+</ol>
+<p>像 <code>python</code> 社区一般会为每个项目开一个独立的虚拟环境，通过精简依赖，隔离环境来减少环境依赖、隔离影响，但没有解决同一个库的多个版本问题（用的最新版本策略，可能 break 依赖老版本的接口），老的版本管理可能是用 <code>requirements.txt</code> 来做，只记录依赖的版本，比较现代一点的 <code>pipenv</code> 会加上源、版本、<code>hash</code>、多环境的区分，环境隔离的好的话，分发的时候基本就是一个静态链接了。</p>
+<p><img src="/images/yarn.jpg" alt=""></p>
+<p>像 <code>node</code> 没有做到环境隔离（都存在 <code>node_modules</code>，一层层往上找，直到根目录）；可以保证每个库有自己的 <code>node_modules</code> 来确保依赖版本正确，依赖管理很灵活，但也带来了碎片文件、占用大量存储空间、误配置时查找问题比较麻烦；支持可以用 <code>peerDependencies</code> 来依赖环境提供，<code>deterministic</code> 则是用 <code>hash</code> + 版本号来保证，<code>yarn</code> 中另加入了源的 <code>check</code>、monorepo 中共用库提升等等优化；支持 <code>link</code> 来开发时修改库的 <code>resolve</code> 方式。</p>
+<p>像 <code>deno</code> / <code>go</code> 这种设计为网络领域的语言，直接用 <code>url</code> 来去中心化管理依赖，要达成 <code>deterministic build</code> 会有天生的困难，只能约定好所有发版都用新的 <code>url</code> 并且能提供下载，对传输层有特殊的安全要求，版本管理也会有麻烦（<code>url</code> 是否需要带上版本信息？）。</p>
+<p><img src="/images/cargo.jpg" alt=""></p>
+<p><code>rust</code> 有着比较现代的工具链 <code>cargo</code>。支持环境隔离；多环境；<code>deterministic build</code>；可以保留同一个库的多个版本，编译时会把他们重命名成不同的库，不会有冲突；方便地指定 <code>resolve</code> 方式（<code>local path</code> 或者 <code>url</code>）；灵活的打包、分发方式（静态链接 / 动态链接，<code>llvm</code>）。很好地解决了上一章节中的开发时、发布时、运行时问题。</p>
+<h2 id="用库还是用服务">用库还是用服务</h2>
+<p>简单对比一下两者</p>
+<ul>
+<li>库是内部依赖，服务可内可外（依赖网络）</li>
+<li>库可同构，也可以带上 <code>binding</code> 做异构、服务用中立的 <a href="https://en.wikipedia.org/wiki/Interface_description_language">IDL</a> 来解耦
+<ul>
+<li>异构的部署难度高，依赖基础设施（网络情况、服务发现等等）</li>
+<li>同构的好处是可以做 <code>lib</code> 或者很方便地做 <code>rpc</code>，无需区分语言特性；坏处是无法把语言解耦，技术栈相对闭塞</li>
+<li>异构的好处是可以在合适的场景中发挥每个语言的长处，比如用 <code>C++</code> 做运算，用 <code>js</code> 做页面，用 <code>py/C++</code> 做数据分析，用 <code>JAVA/go</code> 做 <code>API/大数据</code>等等；坏处是对团队的技术能力门槛有要求，一个体现在部署复杂性提升（需要准备多套环境），另外一个体现在对不同语言的理解和使用上有要求，对小团队来讲影响比较大</li>
+</ul>
+</li>
+<li>多端支持（比如 <code>js</code> 的浏览器和 <code>node</code>）</li>
+<li>服务引入更多环节、有网络开销、效率待评估</li>
+<li>库的效率高、故障处理简单</li>
+</ul>
+<p><img src="/images/microservice.png" alt=""></p>
+<p>用库还是用服务还需要看是否对运行环境有要求，拿 <code>js</code> 来讲，<code>node</code> 跑在后端，浏览器跑在前端，虽然是同一个语言，但运行环境差别很大（还有 es version 的差别、各个浏览器对 es 支持度的差别, 代码加载方式的差别等等…），写代码时就需要注意这些分支判断。像 rust 就有 <code>conditional compilation</code> 的概念，支持用 <code>cfg</code> 注解来区分 <code>build target</code>, <code>os</code>, <code>platform</code>, <code>big/litter endian</code> 等等。</p>
+<h2 id="参数管理">参数管理</h2>
+<p>可以是 <code>lib</code> 的参数，<code>builder</code> 参数，<code>API</code> 的参数，实例的参数等等</p>
+<ul>
+<li>function 的哪些参数允许函数内部修改？传进来的是和 <code>caller</code> 共享的内存吗？改了会对 <code>caller</code> 有影响吗？
+<ul>
+<li>这点经常会引发一些隐藏的共享变量的 <code>mutability</code> 问题（隐式传），在 <code>rust</code> 中看就很明白，所有权和 <code>mutability</code> 都是一眼看明白的（显式传，在签名中声明）</li>
+</ul>
+</li>
+<li>function 的参数使用 <code>struct</code> 还是 <code>...args</code>？
+<ul>
+<li>用 <code>struct</code> 的好处是可以方便的 <code>override</code> 和扩展，但不适合做函数式编程的 <code>curry</code></li>
+<li>用 <code>...args</code> 的话虽然一些 <code>optional</code> 的参数可以不传，但调用的话必须按顺序传，不能跳过；反过来讲它的好处就是可以用来做 <code>curry</code></li>
+</ul>
+</li>
+<li>哪些参数是全局的 / 库级别的？哪些参数是实例级别的 <code>context</code>，是否允许外部传入？
+<ul>
+<li>比如 <code>logger</code> 一般在生命周期内不会修改，常常使用库级别的</li>
+<li>一些阈值视情况使用库级别/实例级别，看是否有隔离的需求，如果需要隔离的话，这些参数到哪都得带着走，往往作为一整个 <code>context</code> 来传</li>
+</ul>
+</li>
+</ul>
+<h2 id="版本号与向后兼容">版本号与向后兼容</h2>
+<p>前面讲的库的依赖管理、服务、参数管理都会涉及到版本号与向后兼容性，目前业界用的比较多的是 <code>semver</code>，约定了大版本号的更迭会出现部分 <code>break</code>（指去除或者修改了 API），大版本号小于 <code>1</code> 表示尚不稳定。一般稳定后发新功能尽量避免 <code>break</code> 已有的 <code>API</code>，如果必须 <code>break</code> 的话，要给到对接方一个显眼的迁移方式，一般放在 release note 或者代码注释以及迁移文档中。</p>
+<p><img src="/images/release.jpg" alt=""></p>
+<blockquote>
+<p>PS
+typescript 的 Structural type system 对 enum 真的太不友好了..</p>
+</blockquote>  </article> <footer class="mt-5">  <div class="flex items-center gap-2"> <a title="上一篇: 记一个k8s中service的clusterIP配置错误的排查过程" href="/posts/记一个k8s中service的clusterip配置错误的排查过程"> <span class="inline-block vertical-mid i-mdi-chevron-double-left w-4 h-4"></span> 上一篇: 记一个k8s中service的clusterIP配置错误的排查过程 </a> <a title="下一篇: 2019回顾" href="/posts/2019回顾"> 下一篇: 2019回顾 <span class="inline-block vertical-mid i-mdi-chevron-double-right w-4 h-4"></span> </a> </div> </footer>    </main> <footer class="transition-swup-footer py-7.5" lg="row-2-3 col-2-3" data-astro-cid-e5lvscu2> <p data-astro-cid-gcn2mc3v>© 2026 <a target="_blank" href="https://blog.filosfino.com">filosfino</a></p><p data-astro-cid-gcn2mc3v>Theme <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by <a target="_blank" href="https://moeyua.com">Moeyua</a></p> </footer> <script type="module">document.addEventListener("animationend",e,!1);function e(){document.documentElement.classList.remove("animation-prepared"),document.removeEventListener("animationend",e,!1)}</script>  </body> </html> <script type="module">function u(e){const t=document.createElement("pre");return t.style.width="1px",t.style.height="1px",t.style.position="fixed",t.style.top="5px",t.textContent=e,t}function a(e){if("clipboard"in navigator)return navigator.clipboard.writeText(e.textContent||"");const t=getSelection();if(t==null)return Promise.reject(new Error);t.removeAllRanges();const n=document.createRange();return n.selectNodeContents(e),t.addRange(n),document.execCommand("copy"),t.removeAllRanges(),Promise.resolve()}function i(e){if("clipboard"in navigator)return navigator.clipboard.writeText(e);const t=document.body;if(!t)return Promise.reject(new Error);const n=u(e);return t.appendChild(n),a(n),t.removeChild(n),Promise.resolve()}async function d(e){const t=e.getAttribute("for"),n=e.getAttribute("value");function o(){e.dispatchEvent(new CustomEvent("clipboard-copy",{bubbles:!0}))}if(e.getAttribute("aria-disabled")!=="true"){if(n)await i(n),o();else if(t){const r="getRootNode"in Element.prototype?e.getRootNode():e.ownerDocument;if(!(r instanceof Document||"ShadowRoot"in window&&r instanceof ShadowRoot))return;const c=r.getElementById(t);c&&(await p(c),o())}}}function p(e){return e instanceof HTMLInputElement||e instanceof HTMLTextAreaElement?i(e.value):e instanceof HTMLAnchorElement&&e.hasAttribute("href")?i(e.href):a(e)}function f(e){const t=e.currentTarget;t instanceof HTMLElement&&d(t)}function l(e){if(e.key===" "||e.key==="Enter"){const t=e.currentTarget;t instanceof HTMLElement&&(e.preventDefault(),d(t))}}function m(e){e.currentTarget.addEventListener("keydown",l)}function y(e){e.currentTarget.removeEventListener("keydown",l)}class h extends HTMLElement{static define(t="clipboard-copy",n=customElements){return n.define(t,this),this}constructor(){super(),this.addEventListener("click",f),this.addEventListener("focus",m),this.addEventListener("blur",y)}connectedCallback(){this.hasAttribute("tabindex")||this.setAttribute("tabindex","0"),this.hasAttribute("role")||this.setAttribute("role","button")}get value(){return this.getAttribute("value")||""}set value(t){this.setAttribute("value",t)}}const s=typeof globalThis<"u"?globalThis:window;try{s.ClipboardCopyElement=h.define()}catch(e){if(!(s.DOMException&&e instanceof DOMException&&e.name==="NotSupportedError")&&!(e instanceof ReferenceError))throw e}document.addEventListener("clipboard-copy",e=>{const n=e.target.querySelector(".icon");n.classList.replace("i-mdi-content-copy","i-mdi-check"),setTimeout(()=>{n.classList.replace("i-mdi-check","i-mdi-content-copy")},1500)});const b=Array.from(document.querySelectorAll("pre")),g="<div class='i-mdi-content-copy icon text-white'></div>";for(const e of b){const t=document.createElement("div");t.className="code-container";const n=document.createElement("clipboard-copy"),o=e.querySelector("code");n.value=o?.textContent??"",n.className="clipboard-copy",n.innerHTML=g,e.appendChild(n),e.parentNode?.insertBefore(t,e),t.appendChild(e)}</script> 

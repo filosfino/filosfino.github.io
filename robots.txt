@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://blog.filosfino.com/sitemap-index.xml

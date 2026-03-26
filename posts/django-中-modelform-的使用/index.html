@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-cn" class="animation-prepared" data-astro-cid-e5lvscu2> <head><title>Django 中 ModelForm 的使用</title><meta charset="utf-8"><link rel="canonical" href="https://blog.filosfino.com/posts/django-%E4%B8%AD-modelform-%E7%9A%84%E4%BD%BF%E7%94%A8/"><meta name="description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="robots" content="index, follow"><meta property="og:title" content="Django 中 ModelForm 的使用"><meta property="og:type" content="article"><meta property="og:image" content="https://blog.filosfino.com/placeholder.png"><meta property="og:url" content="https://blog.filosfino.com"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Filosfino" href="https://blog.filosfino.com/atom.xml"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.11.1"><meta name="twitter:image:src" content="https://blog.filosfino.com/placeholder.png"><meta name="twitter:image:alt" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="twitter:creator" content="@moeyua13"><meta name="twitter:site" content="@moeyua13"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Django 中 ModelForm 的使用"><meta name="twitter:description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><script>(function(){const theme = "system";
+
+  function updateTheme(theme) {
+    // Check if theme is system
+    if (theme === 'system') {
+      // Check OS preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.classList.toggle('dark', prefersDark)
+      return
+    }
+    // Set theme directly
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+  }
+
+  // Initial theme setup
+  updateTheme(theme)
+
+  // Listen for OS theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (theme === 'system') {
+      document.documentElement.classList.toggle('dark', e.matches)
+    }
+  })
+})();</script><link rel="stylesheet" href="/_astro/_page_.CF_tjSKR.css">
+<style>.tk-meta-input{background-color:#fff}.code-container{position:relative}.clipboard-copy{position:absolute;top:.5rem;right:.5rem;width:1.75rem;height:1.75rem;display:flex;justify-content:center;align-items:center;border-radius:.25rem}.clipboard-copy:hover{background-color:#30363d}
+</style><script type="module" src="/_astro/page.BKLBU-BX.js"></script></head> <body class="h-100vh max-w-1200px min-w-390px mx-a" p="7.5 lg:y-0 lg:x-20" lg="grid gap-x-6 cols-[3fr_1fr] rows-[1fr_9rem]" data-astro-cid-e5lvscu2> <header class="transition-swup-header flex flex-col gap-2.5" m="7.5 lg:x-0 lg:t-20 lg:b-4" lg="row-1-2 col-2-3 justify-between items-start" data-astro-cid-e5lvscu2> <hgroup lg="write-vertical-right items-start b-l-2px b-l-primary text-left" flex="~ col gap-2.5" class="cursor-pointer text-center duration-800 ease-in-out"> <a class="not-underline-hover duration-800 ease-in-out" lg:p="x-2.5 b-12 hover:t-3.75 hover:b-8.75" hover:lg=" bg-primary color-background" href="/"> <h3 class="text-5 font-extrabold font-header">喜欢观察世界，也出走过青铜时代、梦马臆想</h3> <h1 class="text-8 font-extrabold font-header">Filosfino</h1> </a> </hgroup> <nav class="text-center font-bold" flex="~ col gap-4"> <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center"> <li> <a class="" href="/"> 文章 </a> </li><li> <a class="" href="/archive"> 归档 </a> </li><li> <a class="" href="/categories"> 分类 </a> </li><li> <a class="" href="/about"> 关于 </a> </li> </ul> <ul flex="~ row gap-1 justify-center"> <li> <a href="https://github.com/filosfino" target="_blank" title="github" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-github w-6 h-6">github</span> </a> </li><li> <a href="/atom.xml" target="_blank" title="rss" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-rss w-6 h-6">rss</span> </a> </li> </ul> </nav> </header> <main class="transition-swup-main overflow-y-scroll scrollbar-hide outline-none" lg="row-1-3 col-1-2 py-20 " data-astro-cid-e5lvscu2>   <article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/django-中-modelform-的使用/">Django 中 ModelForm 的使用</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2016-04-07</time> <a href="/categories/Django">
+# Django </a><a href="/categories/Tech">
+# Tech </a> </div> </header>  <p>@[toc]</p>
+<h1 id="什么是-modelform">什么是 ModelForm</h1>
+<ul>
+<li>Model 在 Django 对应数据库模型
+<ul>
+<li>一个 Model 拥有多个 Model.Field</li>
+</ul>
+</li>
+<li>Form 在 Django 对应表单
+<ul>
+<li>一个 Form 拥有多个 Form.Field</li>
+</ul>
+</li>
+</ul>
+<p>ModelForm 即基于 Model 的 Form，把 Model 中的 Field 根据下图中的映射关系自动转化为 Form 中的 Field。
+<img src="/images/django/model-form-mapping.png" alt=""></p>
+<h1 id="为什么使用-modelform">为什么使用 ModelForm</h1>
+<p>利用 Model 生成 Form，提高 Model 复用性</p>
+<h1 id="如何使用-modelform">如何使用 ModelForm</h1>
+<h2 id="定义-modelform">定义 ModelForm</h2>
+<p>举一个书籍管理例子</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6272A4"># Model</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">class</span><span style="color:#8BE9FD"> Article</span><span style="color:#F8F8F2">(</span><span style="color:#8BE9FD;font-style:italic">models</span><span style="color:#F8F8F2">.</span><span style="color:#8BE9FD;font-style:italic">Model</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#F8F8F2">    title </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> models.CharField(</span><span style="color:#FFB86C;font-style:italic">max_length</span><span style="color:#FF79C6">=</span><span style="color:#BD93F9">20</span><span style="color:#F8F8F2">, </span><span style="color:#FFB86C;font-style:italic">unique</span><span style="color:#FF79C6">=</span><span style="color:#BD93F9">True</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"><span style="color:#F8F8F2">    author </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> models.ForeignKey(</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">Author</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">)</span></span></code></pre>
+<p>这个 Model 中定义了两个字段</p>
+<ul>
+<li>title
+<ul>
+<li>储存书籍标题</li>
+<li>数据类型是 char</li>
+<li>最大长度 20</li>
+<li>数据库唯一值限制，即不能储存两本相同标题的书</li>
+</ul>
+</li>
+<li>author
+<ul>
+<li>储存书籍的作者</li>
+<li>数据类型是外键，指向 Model <code>Author</code></li>
+</ul>
+</li>
+</ul>
+<p>下面我们用 ModelForm 构建表单</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6272A4"># ModelForm</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">class</span><span style="color:#8BE9FD"> ArticleForm</span><span style="color:#F8F8F2">(</span><span style="color:#8BE9FD;font-style:italic">forms</span><span style="color:#F8F8F2">.</span><span style="color:#8BE9FD;font-style:italic">ModelForm</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#FF79C6">    class</span><span style="color:#8BE9FD"> Meta</span><span style="color:#F8F8F2">:</span></span>
+<span class="line"><span style="color:#F8F8F2">        model </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> Article</span></span></code></pre>
+<p>和下面手动构建表单的代码等效</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#FF79C6">class</span><span style="color:#8BE9FD"> ArticleForm</span><span style="color:#F8F8F2">(</span><span style="color:#8BE9FD;font-style:italic">forms</span><span style="color:#F8F8F2">.</span><span style="color:#8BE9FD;font-style:italic">Form</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#F8F8F2">    title </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> forms.CharField(</span><span style="color:#FFB86C;font-style:italic">max_length</span><span style="color:#FF79C6">=</span><span style="color:#BD93F9">20</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"><span style="color:#F8F8F2">    author </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> forms.ModelChoiceField(</span><span style="color:#FFB86C;font-style:italic">queryset</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">Author.objects.all())</span></span></code></pre>
+<h2 id="定制-modelform">定制 ModelForm</h2>
+<p>很多情况下自动生成的 ModelForm 并不能满足设计要求，下面我们来讲一下如何定制</p>
+<p>定制有两种方式</p>
+<ul>
+<li>Meta
+<ul>
+<li>使用 Model 转化的时候自定义转化规则</li>
+</ul>
+</li>
+<li>自定义字段
+<ul>
+<li>定义额外的 Field，会覆盖 Model 自动生成的 Field</li>
+</ul>
+</li>
+</ul>
+<h3 id="meta">Meta</h3>
+<p>ModelForm 是通过 Meta 来把 Model.Field 自动转化为 Form.Field 的，其中涉及到几步转化</p>
+<ul>
+<li>validators 不变</li>
+<li>添加 widget 属性
+<ul>
+<li>即前端的渲染方式</li>
+</ul>
+</li>
+<li>修改 Model 包含的字段
+<ul>
+<li>通过 fields 来拿指定字段</li>
+<li>通过 exclude 来排除指定字段</li>
+</ul>
+</li>
+<li>修改错误信息</li>
+</ul>
+<p>我们通过下面的例子来看一下如何通过 Meta 来定制 ModelForm</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#FF79C6">class</span><span style="color:#8BE9FD"> ArticleForm</span><span style="color:#F8F8F2">(</span><span style="color:#8BE9FD;font-style:italic">forms</span><span style="color:#F8F8F2">.</span><span style="color:#8BE9FD;font-style:italic">ModelForm</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">    class</span><span style="color:#8BE9FD"> Meta</span><span style="color:#F8F8F2">:</span></span>
+<span class="line"><span style="color:#6272A4">        # 指定 Model</span></span>
+<span class="line"><span style="color:#F8F8F2">        model </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> Article</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6272A4">        # Form 需要 Model 中的哪几个 Field</span></span>
+<span class="line"><span style="color:#F8F8F2">        fields </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> [</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">title</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6272A4">        # Form 排除 Model 中的哪几个 Field</span></span>
+<span class="line"><span style="color:#F8F8F2">        exclude </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> [</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">author</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6272A4">        # 自定义错误信息</span></span>
+<span class="line"><span style="color:#F8F8F2">        error_messages </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#E9F284">            '</span><span style="color:#F1FA8C">invalid</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2"> = </span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">invalid title</span><span style="color:#E9F284">'</span></span>
+<span class="line"><span style="color:#F8F8F2">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6272A4">        # 自定义 widget</span></span>
+<span class="line"><span style="color:#6272A4">        # 这里使用了长 80 列，宽 20 行的 textarea</span></span>
+<span class="line"><span style="color:#F8F8F2">        widgets </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> {</span></span>
+<span class="line"><span style="color:#E9F284">            '</span><span style="color:#F1FA8C">name</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">: Textarea(</span><span style="color:#FFB86C;font-style:italic">attrs</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">{</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">cols</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">: </span><span style="color:#BD93F9">80</span><span style="color:#F8F8F2">, </span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">rows</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">: </span><span style="color:#BD93F9">20</span><span style="color:#F8F8F2">}),</span></span>
+<span class="line"><span style="color:#F8F8F2">        }</span></span></code></pre>
+<blockquote>
+<p>Meta 的缺点是不能修改字段的 validators，如果需要自定义 validators，需要在 Meta 外部重新定义一个同名 Field 来覆盖自动生成的 Field</p>
+</blockquote>
+<h3 id="在-form-中另外定义-field">在 Form 中另外定义 Field</h3>
+<p>这是 Form 中定义 Field 的通用方法，在 ModelForm 中它有两个作用</p>
+<ul>
+<li>补充 Model 没有的 Field 到 Form</li>
+<li>覆盖 Model 中的同名 Field 定义</li>
+</ul>
+<p>且看下面的例子，Article 中已经包含了 title 字段，我们在 ModelForm 中重新定义了它，把 CharField 改为了 ChoiceField，并且自定义了 validators。</p>
+<blockquote>
+<p>覆盖 title 的时候，把 title 从 Meta 中 exclude 掉是可选的，去不去掉的区别在于，你是否需要它为你校验 <code>unique=True</code> 这个数据库级限制。
+在这里我们需要校验，因为 ModelForm 校验通过后我需要把它存入数据库，如果这里没有校验的话，碰到同标题的书数据库就会在储存时报错，我们希望把这步校验放在 ModelForm 的校验中，而不是在通过校验后再用 <code>try... catch...</code> 来捕获它。</p>
+</blockquote>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#FF79C6">class</span><span style="color:#8BE9FD"> ArticleForm</span><span style="color:#F8F8F2">(</span><span style="color:#8BE9FD;font-style:italic">forms</span><span style="color:#F8F8F2">.</span><span style="color:#8BE9FD;font-style:italic">ModelForm</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#F8F8F2">    title </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> forms.ChoiceFied(</span><span style="color:#FFB86C;font-style:italic">choices</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">((</span><span style="color:#BD93F9">1</span><span style="color:#F8F8F2">, </span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">alice</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">), (</span><span style="color:#BD93F9">2</span><span style="color:#F8F8F2">, </span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">bob</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">),), </span><span style="color:#FFB86C;font-style:italic">validators</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">MaxValueValidator(</span><span style="color:#BD93F9">2</span><span style="color:#F8F8F2">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">    class</span><span style="color:#8BE9FD"> Meta</span><span style="color:#F8F8F2">:</span></span>
+<span class="line"><span style="color:#F8F8F2">        model </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> Article</span></span></code></pre>
+<h2 id="值得一提的一些-field-转化">值得一提的一些 Field 转化</h2>
+<h3 id="autofield">AutoField</h3>
+<p>该 Field 不会出现在 ModelForm 表单中。</p>
+<blockquote>
+<p>所有 <code>editable=False</code> 的 Field 都不会出现在 ModelForm 中。</p>
+</blockquote>
+<h3 id="booleanfield">BooleanField</h3>
+<p>由于表单提交时统一识别为 string，而 <code>BooleanField</code> 是用 python 中的 <code>bool</code> 来判断的，所以只要传了任意非空值，<code>BooleanField</code> 都会当做 True 来处理，而如果传了空值，由于 <code>forms.Field</code> 默认属性是 <code>required=True</code>，会校验失败，所以如果你需要一个可以填 False 的 Field，那么你需要在 Form 中手动设置这个 Field 的 <code>required=False</code>。</p>
+<h3 id="foreignkey">ForeignKey</h3>
+<p>ForeignKey 自动转化为 ModelChoiceField，用下拉选项菜单渲染，默认渲染出来的选项显示为对应 Field 的 <code>__str__</code>，提交的值为对应 Field 的 <code>id</code>，这些都可以定制。</p>
+<p>在后端接收提交的时候会自动在对应的 Model 中用 id 去找，如果没找到则抛出 ValidationError。</p>
+<h3 id="manytomanyfield">ManyToManyField</h3>
+<p>ManyToManyField 自动转化为 ModelMultipleChoiceField，用多选框渲染，同样默认渲染出来的选项显示为对应 Field 的 <code>__str__</code>，提交的值为对应 Field 的 <code>id</code> 值。</p>
+<p>比如有个叫 group 的 ManyToManyField，选中了 <code>'finance'</code> <code>'develop'</code> 这两个选项，他们的 id 分别为 1 和 2，那么世界上提交的表单 QueryString 就是 <code>group=1&#x26;group=2</code></p>
+<h2 id="初始化-modelform">初始化 ModelForm</h2>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F8F8F2">form </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> ArticleForm(request.</span><span style="color:#BD93F9">POST</span><span style="color:#F8F8F2">)</span></span></code></pre>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F8F8F2">article </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> Article.objects.get(</span><span style="color:#FFB86C;font-style:italic">pk</span><span style="color:#FF79C6">=</span><span style="color:#BD93F9">1</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"><span style="color:#F8F8F2">author </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> Author.objects.first()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F8F8F2">form </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> ArticleForm(request.</span><span style="color:#BD93F9">POST</span><span style="color:#F8F8F2">, </span><span style="color:#FFB86C;font-style:italic">instance</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">article, </span><span style="color:#FFB86C;font-style:italic">initial</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">{</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">author</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">: author})</span></span>
+<span class="line"><span style="color:#6272A4"># form 绑定到 article 实例了</span></span>
+<span class="line"><span style="color:#6272A4"># 初始化表单的时候，author 字段的初始值为 author</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">if</span><span style="color:#F8F8F2"> form.is_valid():</span></span>
+<span class="line"><span style="color:#F8F8F2">    form.save()</span></span></code></pre>
+<ul>
+<li>instance
+<ul>
+<li>给 ModelForm 初始化 Model 实例，后续的操作都作用在这个实例上</li>
+</ul>
+</li>
+<li>initial
+<ul>
+<li>给 ModelForm 初始值</li>
+<li>如果和 instance 同时被定义，同名 field 的值覆盖 instance 中的值</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>数据加载的先后顺序为 instance, initial, request.POST</p>
+</blockquote>
+<h2 id="校验-modelform">校验 ModelForm</h2>
+<blockquote>
+<p>Form 只会检查内部定义过的 Field，request.POST 中其余 keyword 都会被无视和过滤掉，即不会出现在返回的 cleaned_data 中。</p>
+</blockquote>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F8F8F2">form </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> ArticleForm(request.</span><span style="color:#BD93F9">POST</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6272A4"># 校验表单</span></span>
+<span class="line"><span style="color:#FF79C6">if</span><span style="color:#F8F8F2"> form.is_valid():</span></span>
+<span class="line"><span style="color:#6272A4">    # 保存到数据库</span></span>
+<span class="line"><span style="color:#F8F8F2">    article </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> form.save()</span></span></code></pre>
+<p><code>is_valid()</code> 会调用 <code>full_clean()</code>来对表单进行全面校验，它又分成三步（定义在基类 Form 中）</p>
+<ol>
+<li>根据每个 Field 注册的 validators 做单个 Field 的校验 ( 比如 title 字段就会校验是否超出最大允许长度 20 ) 其中在 <code>Field.clean()</code> 执行过后提供了钩子 <code>clean_[field_name]</code>，可以自定义该 function 来注册自己的校验方法。</li>
+<li>根据 Form 定义的 Field 之间的依赖关系做整个表单的校验，钩子为 <code>clean()</code>，默认为空。</li>
+<li>自定义校验通过后的表单处理，钩子为 <code>_post_clean()</code>
+<ul>
+<li>这一步中，ModelForm 做了一些额外的检验：如果定义在 Meta 中的 Field 有 <code>unique=True</code> 这个限制，那么 ModelForm 会按照现有数据库中的数据对其校验，看这个 Field 的值是否已存在，如果已存在，则抛出一个 <code>IntegrityError</code>。实际操作中如果强制不校验 unique 的话，可以把该字段从 Meta 中移除，在 ModelForm 中重新定义该字段。</li>
+</ul>
+</li>
+</ol>
+<h2 id="储存-modelform-对象">储存 ModelForm 对象</h2>
+<p>调用 <code>save()</code> 的时候可以传入 <code>commit=False</code> 来避免立即储存，从而通过后续的修改或补充来得到完整的 Model 实例后再储存到数据库。</p>
+<p>如果初始化的时候传入了 instance，那么调用 <code>save()</code> 的时候会用 ModelForm 中定义过的字段值覆盖绑定实例的相应字段，并写入数据库。</p>
+<p><code>save()</code> 同样会帮你储存 ManyToManyField，如果 save 时使用了 <code>commit=False</code>，那么 ManyToManyField 的储存需要等该条目存入数据库之后手动调用 ModelForm 的 <code>save_m2m()</code> 方法。</p>
+<h2 id="定义一个-form-来新建更新实例">定义一个 Form 来新建、更新实例</h2>
+<p>通常的步骤分为如下几步</p>
+<ul>
+<li>检测该对象是否已在数据库
+<ul>
+<li>如果已存在，那么手动获取该实例，然后更改相关 field 内容，最后使用 <code>update()</code> 方法保存到数据库</li>
+<li>如果不存在，新建一个 Model 实例并修改至完整的 Model，调用 <code>save()</code> 方法保存到数据库</li>
+</ul>
+</li>
+</ul>
+<p>写成代码的话是这样子</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F8F8F2">f </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> AuthorForm(request.</span><span style="color:#BD93F9">POST</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">if</span><span style="color:#F8F8F2"> f.is_valid():</span></span>
+<span class="line"><span style="color:#FF79C6">    try</span><span style="color:#F8F8F2">:</span></span>
+<span class="line"><span style="color:#6272A4">        # Save the new instance.</span></span>
+<span class="line"><span style="color:#F8F8F2">        new_author </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> f.save(</span><span style="color:#FFB86C;font-style:italic">commit</span><span style="color:#FF79C6">=</span><span style="color:#BD93F9">False</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"><span style="color:#F8F8F2">        new_author.some_field </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> f.cleaned_data[</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">some_field</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">]</span></span>
+<span class="line"><span style="color:#F8F8F2">        new_author.save()</span></span>
+<span class="line"><span style="color:#FF79C6">    except</span><span style="color:#F8F8F2"> IntegrityError:</span></span>
+<span class="line"><span style="color:#6272A4">        # 已存在</span></span>
+<span class="line"><span style="color:#6272A4">        # 若要这样使用 update 的话需要在 cleaned_data 中加入上述 some_field 的改动</span></span>
+<span class="line"><span style="color:#6272A4">        # 因为 some_field 的改动只在 new_author 中使用，并不能更新到数据库</span></span>
+<span class="line"><span style="color:#F8F8F2">        Author.objects.filter(</span><span style="color:#FFB86C;font-style:italic">pk</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">f.cleaned_data[</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">pk</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">]).update(f.cleaned_data)</span></span></code></pre>
+<p>太麻烦了！！其实 Django 中已经有 <code>update_or_create</code> 方法已经实现了上述所有功能，可以避免这个 <code>try ... except ...</code> 判断实例是否已存在，我们来看这个例子</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6272A4"># forms.py</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">class</span><span style="color:#8BE9FD"> AuthorAddForm</span><span style="color:#F8F8F2">(</span><span style="color:#8BE9FD;font-style:italic">forms</span><span style="color:#F8F8F2">.</span><span style="color:#8BE9FD;font-style:italic">ModelForm</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#6272A4">    # 确保 pk 不是必须字段</span></span>
+<span class="line"><span style="color:#6272A4">    # 如果不传，自动识别为 None</span></span>
+<span class="line"><span style="color:#F8F8F2">    pk </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> forms.IntegerField(</span><span style="color:#FFB86C;font-style:italic">required</span><span style="color:#FF79C6">=</span><span style="color:#BD93F9">False</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">    class</span><span style="color:#8BE9FD"> Meta</span><span style="color:#F8F8F2">:</span></span>
+<span class="line"><span style="color:#F8F8F2">        model </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> Author</span></span>
+<span class="line"><span style="color:#F8F8F2">        fields </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> [</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">name</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">, </span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">address</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">    def</span><span style="color:#50FA7B"> _post_clean</span><span style="color:#F8F8F2">(</span><span style="color:#BD93F9;font-style:italic">self</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#8BE9FD;font-style:italic">        super</span><span style="color:#F8F8F2">(forms.ModelForm, </span><span style="color:#BD93F9;font-style:italic">self</span><span style="color:#F8F8F2">)._post_clean()</span></span>
+<span class="line"><span style="color:#6272A4">        # 不传 pk 的话表示需要新建一个条目</span></span>
+<span class="line"><span style="color:#FF79C6">        if</span><span style="color:#FF79C6"> not</span><span style="color:#BD93F9;font-style:italic"> self</span><span style="color:#F8F8F2">.cleaned_data[</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">pk</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">]:</span></span>
+<span class="line"><span style="color:#6272A4">            # 添加需要的 Field</span></span>
+<span class="line"><span style="color:#BD93F9;font-style:italic">            self</span><span style="color:#F8F8F2">.cleaned_data[</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">Origin</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">] </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> City.objects.get(</span><span style="color:#FFB86C;font-style:italic">Province</span><span style="color:#FF79C6">=</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">北京</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">, </span><span style="color:#FFB86C;font-style:italic">City</span><span style="color:#FF79C6">=</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">北京</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">)</span></span></code></pre>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6272A4"># views.py</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">class</span><span style="color:#8BE9FD"> AuthorsView</span><span style="color:#F8F8F2">(</span><span style="color:#8BE9FD;font-style:italic">LoginRequiredMixin</span><span style="color:#FF79C6">,</span><span style="color:#8BE9FD;font-style:italic"> TemplateView</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#F8F8F2">    template_name </span><span style="color:#FF79C6">=</span><span style="color:#E9F284"> '</span><span style="color:#F1FA8C">authors.html</span><span style="color:#E9F284">'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">    def</span><span style="color:#50FA7B"> post</span><span style="color:#F8F8F2">(</span><span style="color:#BD93F9;font-style:italic">self</span><span style="color:#F8F8F2">, </span><span style="color:#FFB86C;font-style:italic">request</span><span style="color:#F8F8F2">):</span></span>
+<span class="line"><span style="color:#F8F8F2">        form </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> AuthorAddForm(request.</span><span style="color:#BD93F9">POST</span><span style="color:#F8F8F2">)</span></span>
+<span class="line"><span style="color:#F8F8F2">        result </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">        if</span><span style="color:#FF79C6"> not</span><span style="color:#F8F8F2"> form.is_valid():</span></span>
+<span class="line"><span style="color:#FF79C6">            return</span><span style="color:#F8F8F2"> form.errors</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6272A4">        # 如果 pk 不存在，为 None，那么 update_or_create 匹配失败，从而进入 create 流程</span></span>
+<span class="line"><span style="color:#6272A4">        # 否则 pk 存在表单中，那么尝试匹配数据库，如果命中，进行 update 操作，否则进行 create 操作</span></span>
+<span class="line"><span style="color:#F8F8F2">        Author, created </span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2"> Author.objects.update_or_create(</span><span style="color:#FFB86C;font-style:italic">pk</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">form.cleaned_data[</span><span style="color:#E9F284">'</span><span style="color:#F1FA8C">pk</span><span style="color:#E9F284">'</span><span style="color:#F8F8F2">], </span><span style="color:#FFB86C;font-style:italic">defaults</span><span style="color:#FF79C6">=</span><span style="color:#F8F8F2">form.cleaned_data)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FF79C6">        return</span><span style="color:#F8F8F2"> Author.pk</span></span></code></pre>
+<p>其中 <code>update_or_create</code> 通过检测所有非 defaults 的字段，在上述例子中就是 <code>id=form.cleaned_data['id']</code> 一项是否已存在于数据库而判断是用 <code>update()</code> 还是 <code>create()</code>，而不论是 <code>update()</code> 还是 <code>create()</code>，都会使用 cleaned_data 作为数据源来写入数据库。</p>  </article> <footer class="mt-5">  <div class="flex items-center gap-2"> <a title="上一篇: Django 弱密码校验那些事" href="/posts/django-弱密码校验那些事"> <span class="inline-block vertical-mid i-mdi-chevron-double-left w-4 h-4"></span> 上一篇: Django 弱密码校验那些事 </a> <a title="下一篇: See You Again | Ukulele TAB谱" href="/posts/ukulele-see-you-again"> 下一篇: See You Again | Ukulele TAB谱 <span class="inline-block vertical-mid i-mdi-chevron-double-right w-4 h-4"></span> </a> </div> </footer>    </main> <footer class="transition-swup-footer py-7.5" lg="row-2-3 col-2-3" data-astro-cid-e5lvscu2> <p data-astro-cid-gcn2mc3v>© 2026 <a target="_blank" href="https://blog.filosfino.com">filosfino</a></p><p data-astro-cid-gcn2mc3v>Theme <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by <a target="_blank" href="https://moeyua.com">Moeyua</a></p> </footer> <script type="module">document.addEventListener("animationend",e,!1);function e(){document.documentElement.classList.remove("animation-prepared"),document.removeEventListener("animationend",e,!1)}</script>  </body> </html> <script type="module">function u(e){const t=document.createElement("pre");return t.style.width="1px",t.style.height="1px",t.style.position="fixed",t.style.top="5px",t.textContent=e,t}function a(e){if("clipboard"in navigator)return navigator.clipboard.writeText(e.textContent||"");const t=getSelection();if(t==null)return Promise.reject(new Error);t.removeAllRanges();const n=document.createRange();return n.selectNodeContents(e),t.addRange(n),document.execCommand("copy"),t.removeAllRanges(),Promise.resolve()}function i(e){if("clipboard"in navigator)return navigator.clipboard.writeText(e);const t=document.body;if(!t)return Promise.reject(new Error);const n=u(e);return t.appendChild(n),a(n),t.removeChild(n),Promise.resolve()}async function d(e){const t=e.getAttribute("for"),n=e.getAttribute("value");function o(){e.dispatchEvent(new CustomEvent("clipboard-copy",{bubbles:!0}))}if(e.getAttribute("aria-disabled")!=="true"){if(n)await i(n),o();else if(t){const r="getRootNode"in Element.prototype?e.getRootNode():e.ownerDocument;if(!(r instanceof Document||"ShadowRoot"in window&&r instanceof ShadowRoot))return;const c=r.getElementById(t);c&&(await p(c),o())}}}function p(e){return e instanceof HTMLInputElement||e instanceof HTMLTextAreaElement?i(e.value):e instanceof HTMLAnchorElement&&e.hasAttribute("href")?i(e.href):a(e)}function f(e){const t=e.currentTarget;t instanceof HTMLElement&&d(t)}function l(e){if(e.key===" "||e.key==="Enter"){const t=e.currentTarget;t instanceof HTMLElement&&(e.preventDefault(),d(t))}}function m(e){e.currentTarget.addEventListener("keydown",l)}function y(e){e.currentTarget.removeEventListener("keydown",l)}class h extends HTMLElement{static define(t="clipboard-copy",n=customElements){return n.define(t,this),this}constructor(){super(),this.addEventListener("click",f),this.addEventListener("focus",m),this.addEventListener("blur",y)}connectedCallback(){this.hasAttribute("tabindex")||this.setAttribute("tabindex","0"),this.hasAttribute("role")||this.setAttribute("role","button")}get value(){return this.getAttribute("value")||""}set value(t){this.setAttribute("value",t)}}const s=typeof globalThis<"u"?globalThis:window;try{s.ClipboardCopyElement=h.define()}catch(e){if(!(s.DOMException&&e instanceof DOMException&&e.name==="NotSupportedError")&&!(e instanceof ReferenceError))throw e}document.addEventListener("clipboard-copy",e=>{const n=e.target.querySelector(".icon");n.classList.replace("i-mdi-content-copy","i-mdi-check"),setTimeout(()=>{n.classList.replace("i-mdi-check","i-mdi-content-copy")},1500)});const b=Array.from(document.querySelectorAll("pre")),g="<div class='i-mdi-content-copy icon text-white'></div>";for(const e of b){const t=document.createElement("div");t.className="code-container";const n=document.createElement("clipboard-copy"),o=e.querySelector("code");n.value=o?.textContent??"",n.className="clipboard-copy",n.innerHTML=g,e.appendChild(n),e.parentNode?.insertBefore(t,e),t.appendChild(e)}</script> 

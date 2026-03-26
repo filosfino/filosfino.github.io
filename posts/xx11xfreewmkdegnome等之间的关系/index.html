@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="zh-cn" class="animation-prepared" data-astro-cid-e5lvscu2> <head><title>X,X11,XFREE,WM,KDE,GNOME等之间的关系</title><meta charset="utf-8"><link rel="canonical" href="https://blog.filosfino.com/posts/xx11xfreewmkdegnome%E7%AD%89%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/"><meta name="description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="robots" content="index, follow"><meta property="og:title" content="X,X11,XFREE,WM,KDE,GNOME等之间的关系"><meta property="og:type" content="article"><meta property="og:image" content="https://blog.filosfino.com/placeholder.png"><meta property="og:url" content="https://blog.filosfino.com"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Filosfino" href="https://blog.filosfino.com/atom.xml"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v5.11.1"><meta name="twitter:image:src" content="https://blog.filosfino.com/placeholder.png"><meta name="twitter:image:alt" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><meta name="twitter:creator" content="@moeyua13"><meta name="twitter:site" content="@moeyua13"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="X,X11,XFREE,WM,KDE,GNOME等之间的关系"><meta name="twitter:description" content="filosfino 分享阅读经验、学习、编程、观点、见闻、效率工具的地方"><script>(function(){const theme = "system";
+
+  function updateTheme(theme) {
+    // Check if theme is system
+    if (theme === 'system') {
+      // Check OS preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.classList.toggle('dark', prefersDark)
+      return
+    }
+    // Set theme directly
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+  }
+
+  // Initial theme setup
+  updateTheme(theme)
+
+  // Listen for OS theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (theme === 'system') {
+      document.documentElement.classList.toggle('dark', e.matches)
+    }
+  })
+})();</script><link rel="stylesheet" href="/_astro/_page_.CF_tjSKR.css">
+<style>.tk-meta-input{background-color:#fff}.code-container{position:relative}.clipboard-copy{position:absolute;top:.5rem;right:.5rem;width:1.75rem;height:1.75rem;display:flex;justify-content:center;align-items:center;border-radius:.25rem}.clipboard-copy:hover{background-color:#30363d}
+</style><script type="module" src="/_astro/page.BKLBU-BX.js"></script></head> <body class="h-100vh max-w-1200px min-w-390px mx-a" p="7.5 lg:y-0 lg:x-20" lg="grid gap-x-6 cols-[3fr_1fr] rows-[1fr_9rem]" data-astro-cid-e5lvscu2> <header class="transition-swup-header flex flex-col gap-2.5" m="7.5 lg:x-0 lg:t-20 lg:b-4" lg="row-1-2 col-2-3 justify-between items-start" data-astro-cid-e5lvscu2> <hgroup lg="write-vertical-right items-start b-l-2px b-l-primary text-left" flex="~ col gap-2.5" class="cursor-pointer text-center duration-800 ease-in-out"> <a class="not-underline-hover duration-800 ease-in-out" lg:p="x-2.5 b-12 hover:t-3.75 hover:b-8.75" hover:lg=" bg-primary color-background" href="/"> <h3 class="text-5 font-extrabold font-header">喜欢观察世界，也出走过青铜时代、梦马臆想</h3> <h1 class="text-8 font-extrabold font-header">Filosfino</h1> </a> </hgroup> <nav class="text-center font-bold" flex="~ col gap-4"> <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center"> <li> <a class="" href="/"> 文章 </a> </li><li> <a class="" href="/archive"> 归档 </a> </li><li> <a class="" href="/categories"> 分类 </a> </li><li> <a class="" href="/about"> 关于 </a> </li> </ul> <ul flex="~ row gap-1 justify-center"> <li> <a href="https://github.com/filosfino" target="_blank" title="github" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-github w-6 h-6">github</span> </a> </li><li> <a href="/atom.xml" target="_blank" title="rss" class="not-underline-hover inline-flex items-center"> <span class="i-mdi-rss w-6 h-6">rss</span> </a> </li> </ul> </nav> </header> <main class="transition-swup-main overflow-y-scroll scrollbar-hide outline-none" lg="row-1-3 col-1-2 py-20 " data-astro-cid-e5lvscu2>   <article class="prose"> <header flex="~ col gap-2"> <h1 class="post-title"> <a class="not-prose" href="/posts/xx11xfreewmkdegnome等之间的关系/">X,X11,XFREE,WM,KDE,GNOME等之间的关系</a> </h1> <div class="text-3.5"> <span>发布于</span> <time>2011-03-06</time> <a href="/categories/Quotation">
+# Quotation </a><a href="/categories/Tech">
+# Tech </a> </div> </header>  <p>关于linux图形界面的基本知识</p>
+<p>很多LINUX初学者分不清楚linux和X之间,X和Xfree86之间,X和KDE,GNOME等之间是什么关系.常常混淆概念,我想以比较易于理解的方式说明一下X,X11,XFREE,WM,KDE,GNOME等之间的关系.由于本人水平有限可能存在错误,请高手指正.
+ </p>
+<h2 id="linux本身没有图形界面linux现在的图形界面的实现只是linux下的应用程序实现的">linux本身没有图形界面,linux现在的图形界面的实现只是linux下的应用程序实现的</h2>
+<p> 
+图形界面并不是linux的一部分,linux只是一个基于命令行的操作系统,linux和Xfree的关系就相当于当年的DOS和WINDOWS3.0一样,windows3.0不是独立的操作系统,它只是DOS的扩充,是DOS下的应用程序级别的系统,不是独立的操作系统,同样XFree只是linux下的一个应用程序而已.不是系统的一部分,但是X的存在可以方便用户使用电脑.WINDOWS95及以后的版本就不一样了,他们的图形界面是操作系统的一部分,图形界面在系统内核中就实现了,没有了图形界面windows就不成为windows了,但linux却不一样,没有图形界面linux还是 linux,很多装linux的WEB服务器就根本不装X服务器.这也WINDOWS和linux的重要区别之一.
+ </p>
+<h2 id="x是协议不是具体的某个软件">X是协议,不是具体的某个软件</h2>
+<p> 
+X 是协议,就像HTTP协议,IP协议一样.这个概念很多初学者甚至学习LINUX有一定时间的人都混淆,一个基于X的应用程序需要运行并显示内容时他就联接到X服务器,开始用X协议和服务器交谈.比如一个X应用程序要在屏幕上输出一个圆那么他就用X协议对X服务器说:喂!我需要在屏幕上画一个圆.X应用程序只负责告诉X服务器在屏幕的什么地方用什么颜色画一个多大的圆,而具体的 “画” 的动作,比如这个圆如何生成,用什么显卡的驱动程序去指挥显卡完成等等工作是由X服务器来完成的.X服务器还负责捕捉键盘和鼠标的动作,假设X服务器捕捉到鼠标的左键被按下了,他就告诉X应用程序:亲爱的应用程序先生,我发现鼠标被按下了,您有什么指示吗?如果X应用程序被设计成当按下鼠标左健后再在屏幕上画一个正方形的话,X应用程序就对X服务器说:请再画一个正方形,当然他会告诉服务器在什么地方用什么颜色画多大的正方形,但不关心具体怎么画—那是服务器的事情. 那么协议是需要具体的软件来实现的,这就是下面我要讲的:
+ </p>
+<h2 id="x和xfree86的关系">X和XFree86的关系</h2>
+<p> 
+有了协议就需要具体的软件来实现这个协议.就好比我们有了交通法规就需要交警去根据法规维护交通秩序一样.Xfree86就是这样一个去根据法规实现协议的 “交警”.他按照X协议的规定来完成X应用程序提交的在屏幕上显示的任务.当然不仅仅是某个特定的交警才可以去维护和实现这个法规,比如还可以由交通协管员来实现交通法规,必要的时候警察也可以介入,当然前提是他们都要懂得交通法规,也就是要懂得协议.所以实现X协议的软件也并不只有XFree86, XFree86只是实现X协议的一个免费X服务器软件.商业上常用MOTIF,现在还有XORG,还有很多很小的由爱好者写的小的X服务器软件.甚至可以在WINDOWS上有X服务器运行,这样你可以在linux系统上运行一个X应用程序然后在另一台windows系统上显示.多么神奇.你可以用 google找到这样的X服务器软件.只不过在LINUX上最常用的是XFree86.(现在的linux发行版都用Xorg了)顺便说一句,苹果电脑的图形界面用的也是X协议,而且被认为是做的最好的X协议图形界面,并且他对X协议的实施是做在系统内核里的,所以性能明显好很多,这就是为什么很多大型三维图形设计软件都是在苹果平台上的原因. 为了便于理解拿HTTP协议来比较:</p>
+<p>协议是HTTP (hyper text transmission protocol)
+实现这个协议的常用服务器有:apache IIS 等
+请求这些服务器传输文件的客户有:IE ,MOZILLA ,NETSCAPE等.</p>
+<p>协议是X
+实现这个协议的常用服务器有Xfree86 ,Xorg ,Xnest等
+请求这些服务器来完成显示任务的客户:所有的X应用程序.
+ 
+只不过HTTP协议的服务器和客户端通常都在两台不同的电脑(服务器和客户机)之间来实现,所以一般人对这个比较容易理解.而X协议的服务器和客户端程序通常在同一台电脑上,因此很多用户都感到对此很难理解.既然是协议,那么肯定和平台无关的,因此可以让X应用程序显示在任何装有X服务器的远程计算机上.甚至显示在装有Xnest服务器的windows系统上.只不过在大多数情况下,X应用程序都用本机的X服务器,然后X服务器将显示结果输出到本机的显示器.这也是很多人不理解X是一种协议的原因.
+ </p>
+<h2 id="x和x11r6又是什么关系">X和X11R6又是什么关系?</h2>
+<p> 
+不知道初学者有没有注意到/usr/X11R6这个目录,这是XFree的默认安装目录 X11R6 实际上是 X Protocol version 11 Release 6 (X协议第11版第六次发行)的意思,就是说目前用的X协议是第11版的,然后经过了6次小的修正.不同版本的X协议是不能通信的.就象我们现在IPV4和IPV6不能通信一样,不过不用担心,现在的X服务器软件和X应用程序都遵循X11R6.
+ 
+另外XFree86 3.3.6 XFree86 4.3.6 等这些版本是实现X协议的软件XFree86的版本号.这是初学者经常高混淆的概念.
+协议版本和实现协议的软件的版本—这两个概念的区别你分清楚了吗?
+ </p>
+<h2 id="x服务器和wmwindow-manager-窗口管理器之间是什么关系">X服务器和WM(window manager 窗口管理器)之间是什么关系</h2>
+<p> 
+平时大家起动图形界面是怎么启动的呢? 如果你是一开己就进入图形界面那就太遗憾了.应为你错过了了解X服务器起动过程的好时机.不过没关系.你打开一个XTERM输入: init 3 就可以安全的回到字符界面.
+ 
+好了,等做完以下实验你就完全明白X和WM(window manager 窗口管理器)之间是什么关系了.
+ 
+先输入以下命令:</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#startx</span></span></code></pre>
+<p>起动图形界面,你看到的是一个和平时使用一样的完整的图形界面操作环境. 你可以最大化,最小化,移动,关闭窗口等. 按<code>ctrl+alt+backspace</code>反回字符界面.
+ 
+输入:</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#xinit</span></span></code></pre>
+<p>再次启动图形界面,你看到了什么,你看到一个XTERM.而且不能移动.但是你可以在这个XTERM中输入命令打开X应用程序,如果我输入:</p>
+<pre class="astro-code dracula" style="background-color:#282A36;color:#F8F8F2; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#mozilla</span></span></code></pre>
+<p>打开浏览器,你看到的浏览器和平时有什么不同吗?他在屏幕中间,不能移动,不能最小化,不能最大化,没有边框.
+ 
+为什么同样一个X应用程序会有这样的不同呢?因为我们用startx起动图形界面的时候同时也启动了一个WM(即窗口管理器),如果你用KDE就起动了KDE,如果你用GNOME就起动了GNOME.但是你用xinit起动图形界面的时候却没有起动WM.
+ 
+现在你明白窗口管理器的作用了吗?他的作用就是最大化,最小化,移动,关闭窗口等.而这些不是X服务器来负责完成的.
+ 
+如果你用xinit起动图形界面并在xterm中输入twm,看看会有什么?
+ 
+xterm被加上了一个边框,你可以通过这个边框移动,最大化,最小化这个xterm,twm就是XFree86中自带的窗口管理器,是一个比较简陋的最简单的窗口管理器,但是他具有窗口管理器的全部特征.
+ 
+如果你不输入twm而输入gnome-session就可以起动GNOME 或者输入startkde起动KDE.
+ 
+通过以上的实验你就可以清楚的明白他们之间的关系.
+ </p>
+<h2 id="关于kde和gnome">关于KDE和GNOME</h2>
+<p> 
+KDE 和GNOME是LINUX里最常用的图形界面操作环境,他们不仅仅是一个窗口管理器那么简单,
+ 
+KDE是K Desktop Environment 的缩写.他不仅是一个窗口管理器,还有很多配套的应用软件和方便使用的桌面环境,比如任务栏,开始菜单,桌面图标等等.
+ 
+GNOME是GNU Network Object Model Environment 的缩写.和KDE一样,也是一个功能强大的综合环境. 另外在其它UNIX系统中,常常使用CDE作为这样一个环境.</p>
+<p>其它的小型窗口管理器有: window maker,after step,blackbox,fvwm,fvwm2,等等都是常用的优秀窗口管理器.REDHAT9中有 window maker 但是默认不安装,大家可以装来试试.只要xinit再wmaker&#x26;就可以用windowmaker了.
+ </p>
+<h2 id="linux图形界面层次关系总结">linux图形界面层次关系总结</h2>
+<p> 
+linux本身—> X服务器 &#x3C;-[通过X协议交谈]-> 窗口管理器(综合桌面环境)—> X应用程序.</p>  </article> <footer class="mt-5">  <div class="flex items-center gap-2"> <a title="上一篇: Echo From Roommate" href="/posts/echo-from-roommate"> <span class="inline-block vertical-mid i-mdi-chevron-double-left w-4 h-4"></span> 上一篇: Echo From Roommate </a> <a title="下一篇: 倾心情结" href="/posts/倾心情结"> 下一篇: 倾心情结 <span class="inline-block vertical-mid i-mdi-chevron-double-right w-4 h-4"></span> </a> </div> </footer>    </main> <footer class="transition-swup-footer py-7.5" lg="row-2-3 col-2-3" data-astro-cid-e5lvscu2> <p data-astro-cid-gcn2mc3v>© 2026 <a target="_blank" href="https://blog.filosfino.com">filosfino</a></p><p data-astro-cid-gcn2mc3v>Theme <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by <a target="_blank" href="https://moeyua.com">Moeyua</a></p> </footer> <script type="module">document.addEventListener("animationend",e,!1);function e(){document.documentElement.classList.remove("animation-prepared"),document.removeEventListener("animationend",e,!1)}</script>  </body> </html> <script type="module">function u(e){const t=document.createElement("pre");return t.style.width="1px",t.style.height="1px",t.style.position="fixed",t.style.top="5px",t.textContent=e,t}function a(e){if("clipboard"in navigator)return navigator.clipboard.writeText(e.textContent||"");const t=getSelection();if(t==null)return Promise.reject(new Error);t.removeAllRanges();const n=document.createRange();return n.selectNodeContents(e),t.addRange(n),document.execCommand("copy"),t.removeAllRanges(),Promise.resolve()}function i(e){if("clipboard"in navigator)return navigator.clipboard.writeText(e);const t=document.body;if(!t)return Promise.reject(new Error);const n=u(e);return t.appendChild(n),a(n),t.removeChild(n),Promise.resolve()}async function d(e){const t=e.getAttribute("for"),n=e.getAttribute("value");function o(){e.dispatchEvent(new CustomEvent("clipboard-copy",{bubbles:!0}))}if(e.getAttribute("aria-disabled")!=="true"){if(n)await i(n),o();else if(t){const r="getRootNode"in Element.prototype?e.getRootNode():e.ownerDocument;if(!(r instanceof Document||"ShadowRoot"in window&&r instanceof ShadowRoot))return;const c=r.getElementById(t);c&&(await p(c),o())}}}function p(e){return e instanceof HTMLInputElement||e instanceof HTMLTextAreaElement?i(e.value):e instanceof HTMLAnchorElement&&e.hasAttribute("href")?i(e.href):a(e)}function f(e){const t=e.currentTarget;t instanceof HTMLElement&&d(t)}function l(e){if(e.key===" "||e.key==="Enter"){const t=e.currentTarget;t instanceof HTMLElement&&(e.preventDefault(),d(t))}}function m(e){e.currentTarget.addEventListener("keydown",l)}function y(e){e.currentTarget.removeEventListener("keydown",l)}class h extends HTMLElement{static define(t="clipboard-copy",n=customElements){return n.define(t,this),this}constructor(){super(),this.addEventListener("click",f),this.addEventListener("focus",m),this.addEventListener("blur",y)}connectedCallback(){this.hasAttribute("tabindex")||this.setAttribute("tabindex","0"),this.hasAttribute("role")||this.setAttribute("role","button")}get value(){return this.getAttribute("value")||""}set value(t){this.setAttribute("value",t)}}const s=typeof globalThis<"u"?globalThis:window;try{s.ClipboardCopyElement=h.define()}catch(e){if(!(s.DOMException&&e instanceof DOMException&&e.name==="NotSupportedError")&&!(e instanceof ReferenceError))throw e}document.addEventListener("clipboard-copy",e=>{const n=e.target.querySelector(".icon");n.classList.replace("i-mdi-content-copy","i-mdi-check"),setTimeout(()=>{n.classList.replace("i-mdi-check","i-mdi-content-copy")},1500)});const b=Array.from(document.querySelectorAll("pre")),g="<div class='i-mdi-content-copy icon text-white'></div>";for(const e of b){const t=document.createElement("div");t.className="code-container";const n=document.createElement("clipboard-copy"),o=e.querySelector("code");n.value=o?.textContent??"",n.className="clipboard-copy",n.innerHTML=g,e.appendChild(n),e.parentNode?.insertBefore(t,e),t.appendChild(e)}</script> 
